@@ -44,13 +44,18 @@ openUrl() {
   "${cmd[@]}" || { echo "Cannot locate or failed to open default browser; please go to '$url' manually." >&2; return 1; }
 }
 
+printManPageSource() {
+  sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/ { s///; t\np;}' "$BASH_SOURCE"
+}
+
 openManPage() {
-  local pager='more' embeddedText
-  if ! man 1 "$kTHIS_NAME" 2>/dev/null; then # 1st attempt: try to display installed man page
+  local pager embeddedText 
+  if ! man 1 "$kTHIS_NAME"; then
     # 2nd attempt: if present, display the embedded Markdown-formatted man-page source
-    embeddedText=$(sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/ { s///; t\np;}' "$BASH_SOURCE")
+    embeddedText=$(printManPageSource)
     if [[ -n $embeddedText ]]; then
-      command -v less &>/dev/null && pager='less'
+      pager='more'
+      command -v less &>/dev/null && pager='less' # see if the non-standard `less` is available, because it's preferable to the POSIX utility `more`
       printf '%s\n' "$embeddedText" | "$pager"
     else # 3rd attempt: open the the man page on the utility's website
       openUrl "${kTHIS_HOMEPAGE}/doc/${kTHIS_NAME}.md"
@@ -86,6 +91,10 @@ case $1 in
   --man)
     # Display the manual page and exit.
     openManPage; exit
+    ;;
+  --man-md) # private option, used by `make update-doc`
+    # Print raw, embedded Markdown-formatted man-page source and exit
+    printManPageSource; exit
     ;;
   --home)
     # Open the home page and exit.
