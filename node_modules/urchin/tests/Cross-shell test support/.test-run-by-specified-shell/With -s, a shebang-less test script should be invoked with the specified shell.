@@ -1,0 +1,10 @@
+# By design, this file has no shebang line.
+
+# Assuming that urchin was invoked with `-s bash`, this script should be being run with bash.
+
+this_shell=$(ps -o comm= -p $$ && :)
+
+echo "Running shell: $this_shell"
+
+[  "$this_shell" = 'bash' ]
+

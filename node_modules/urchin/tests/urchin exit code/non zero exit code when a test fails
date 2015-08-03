@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Borrow this test which has a failure in it (3 in fact), and
+# run it using urchin:
+../../urchin "../Counts should be kept of successes and failures./.test" > /dev/null
+
+# Now invert the result, we want _this_ test to fail if the exit
+# code was 0.
+case $? in
+  0) exit 8;;
+  *) exit 0;;
+esac
+

@@ -1,0 +1,2 @@
+#!/bin/sh
+../../urchin .test-one | grep '1 test failed'

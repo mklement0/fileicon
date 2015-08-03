@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ $(grep -c 'setup_dir has run' .log) = '1' ]

@@ -1,0 +1,117 @@
+.TH "FILEICON" "1" "August 2015" "v0.1.0" ""
+.SH "NAME"
+\fBfileicon\fR \- manage custom icons for files and folders
+.SH SYNOPSIS
+.P
+ Set a custom icon for a file or folder:
+.P
+.RS 2
+.nf
+fileicon set      <fileOrFolder> <imageFile>
+.fi
+.RE
+.P
+ Remove a custom icon from a file or folder:
+.P
+.RS 2
+.nf
+fileicon rm       <fileOrFolder>
+.fi
+.RE
+.P
+ Get a file or folder's custom icon:
+.P
+.RS 2
+.nf
+fileicon get [\-f] <fileOrFolder> [<iconOutputFile>]
+.fi
+.RE
+.P
+ Test if a file or folder has a custom icon:
+.P
+.RS 2
+.nf
+fileicon test     <fileOrFolder>
+.fi
+.RE
+.P
+ \fB\-q\fP \.\.\.  silence status output
+.P
+ Standard options: \fB\-\-help\fP, \fB\-\-man\fP, \fB\-\-version\fP, \fB\-\-home\fP
+.SH DESCRIPTION
+.P
+  Manages custom file or folder icons on OSX, as displayed in Finder\.
+.P
+  \fB<fileOrFolder>\fP is the file or folder whose custom icon should be managed\.
+.br
+  Note that symlinks are followed to their (ultimate target); that is, you
+  can only assign custom icons to regular files and folders, not to symlinks
+  to them\.
+.P
+  \fB<imageFile>\fP can be an image file of any format supported by the system\.
+  It is converted to an icon and assigned to \fB<fileOrFolder>\fP\|\.
+.P
+  \fB<iconOutputFile>\fP specifies the file to extract the custom icon to:
+  If not specified, defaults to the filename of \fB<fileOrFolder>\fP with extension
+  \fB\|\.icns\fP appended\.
+.br
+  If specified, extension \fB\|\.icns\fP is appended, unless already present\.
+  Either way, extraction will fail if the target file already exists; use
+  \fB\-f\fP to override\.
+  You may specify \fB\-\fP to extract to stdout\.
+.P
+  Command \fBtest\fP signals with its exit code whether a custom icon is set (0)
+  or not (1); any other exit code signals an unexpected error\.
+.P
+  \fBOptions\fR:
+.RS 0
+.IP \(bu 2
+\fB\-f\fP, \fB\-\-force\fP
+.br
+When getting (extracting) a custom icon, forces replacement of the
+specified output file, if it exists\.
+.IP \(bu 2
+\fB\-q\fP, \fB\-\-quiet\fP
+.br
+Suppresses output of status information to stdout\.
+.br
+Note that errors and warnings are still printed to stderr\.
+
+.RE
+.SH NOTES
+.P
+  Custom icons are stored in extended attributes of the HFS filesystem\.
+  Thus, if you copy files or folders to a different filesystem that doesn't
+  support such attributes, custom icons are lost\.
+.P
+  When setting a custom icon, the source image is resized to 128 x 128 pixels
+  and stored as a single icon, which the system resizes dynamically, depending
+  on context\.
+.br
+  Currently, even if the source image file is itself an \fB\|\.icns\fP file that
+  contains multiple icons for distinct resolutions, only the 128 x 128 icon
+  is assigned\.
+.SH STANDARD OPTIONS
+.P
+  All standard options provide information only\.
+.RS 0
+.IP \(bu 2
+\fB\-h, \-\-help\fP
+.br
+Prints the contents of the synopsis chapter to stdout for quick reference\.
+.IP \(bu 2
+\fB\-\-man\fP
+.br
+Displays this manual page, which is a helpful alternative to using \fBman\fP, 
+if the manual page isn't installed\.
+.IP \(bu 2
+\fB\-\-version\fP
+.br
+Prints version information\.
+.IP \(bu 2
+\fB\-\-home\fP
+.br
+Opens this utility's home page in the system's default web browser\.
+
+.RE
+

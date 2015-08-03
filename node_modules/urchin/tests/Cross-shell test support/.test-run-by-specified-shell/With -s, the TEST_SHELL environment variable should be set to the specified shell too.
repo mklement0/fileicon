@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Assuming that urchin was invoked with `-s bash`, $TEST_SHELL should contain 'bash'.
+
+echo "Running shell: $(ps -o comm= -p $$ && :)"
+
+echo "\$TEST_SHELL: $TEST_SHELL"
+
+[  "$TEST_SHELL" = 'bash' ]

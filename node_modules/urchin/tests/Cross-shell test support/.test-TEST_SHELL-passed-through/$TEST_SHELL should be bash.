@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Assuming that urchin was invoked with `TEST_SHELL=bash urchin ...`, $TEST_SHELL should contain 'bash'.
+
+echo "\$TEST_SHELL: $TEST_SHELL"
+
+[ "$TEST_SHELL" = 'bash' ]

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Tests support for either passing through or defining a default value for environment variable TEST_SHELL.
+# (for test scripts that want to invoke shell scripts with a specified shell).
+
+# Test if $TEST_SHELL - if *undefined* - is exported with value '/bin/sh' by urchin
+# and thus has that value inside test scripts.
+unset -v TEST_SHELL
+../../urchin ./.test-TEST_SHELL-undefined_or_empty

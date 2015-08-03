@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Invoke a simple test command with $TEST_SHELL as the executable.
+[ "$($TEST_SHELL -c 'echo $0')" = "$TEST_SHELL" ]

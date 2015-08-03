@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Tests the `-s <shell> option, which invokes shebang-less and sh-shebang-line test scripts with the specified shell (for testing *sourced* shell code).
+
+which bash >/dev/null || { echo "Cannot test -s option: bash cannot be located." >&2; exit 2; }
+which /usr/bin/awk >/dev/null || { echo "Cannot test -s option: /usr/bin/awk not found." >&2; exit 2; }
+
+../../urchin -s bash ./.test-run-by-specified-shell

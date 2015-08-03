@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# ---
+# IMPORTANT: Use the following statement at the TOP OF EVERY TEST SCRIPT
+#            to ensure that this package's 'bin/' subfolder is added to the path so that
+#            this package's CLIs can be invoked by their mere filename in the rest
+#            of the script.
+# ---
+PATH=${PWD%%/test*}/bin:$PATH
+
+# Helper function for error reporting.
+die() { (( $# > 0 )) && echo "ERROR: $*" >&2; exit 1; }
+
+# Create a temp. dir.
+tmpDir=$(mktemp -d -t XXXX) # Works on both OSX and Linux; note: dir. name will have random extension on OSX (e.g., '.../XXXX.bJViLcM3') and none on Linux (e.g., '.../vXDA')
+trap 'rm -rf "$tmpDir"' EXIT # Set up exit trap to automatically clean up the temp dir.
+
+# Copy fixtures to temp. dir.
+cp -R ./.fixtures/* "$tmpDir/" || die
+
+# Change to temp dir.
+cd "$tmpDir" || die
+
+# Assign com.apple.FinderInfo data to the target file first:
+# Invisibility flag on, tag(colored label)-assigned flag on.
+before='0000000000000000400C00000000000000000000000000000000000000000000'
+xattr -wx com.apple.FinderInfo "$before" file || die
+
+# Set custom icon.
+fileicon set file img.png || die "Failed to set."
+
+# Verify that the pre-existing FinderInfo was retained, with the custom-icon flag bit-OR-ed in:
+expectedAfter='0000000000000000440C00000000000000000000000000000000000000000000'
+actualAfter=$(xattr -px com.apple.FinderInfo file | tr -d ' \n') || die
+
+[[ "$expectedAfter" == "$actualAfter" ]] || die "Unexpected FinderInfo: got '$actualAfter', expected '$expectedAfter'"
+
+exit 0

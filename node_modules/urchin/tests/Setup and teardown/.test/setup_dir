@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo > .log
+echo setup_dir has run >> .log

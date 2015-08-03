@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Tests support for either passing through or defining a default value for environment variable TEST_SHELL.
+# (for test scripts that want to invoke shell scripts with a specified shell).
+
+which bash 2>/dev/null || { echo "Cannot test -s option: bash cannot be located." >&2; exit 1; }
+
+# Test if $TEST_SHELL, when placed in urchin's environment, is passed through to the test scripts.
+TEST_SHELL=bash ../../urchin ./.test-TEST_SHELL-passed-through

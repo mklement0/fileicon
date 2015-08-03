@@ -1,0 +1,3 @@
+#!/bin/sh
+
+../urchin .example-test-suite | grep '32'

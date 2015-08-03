@@ -1,0 +1,50 @@
+{
+  "name": "fileicon",
+  "description": "OSX CLI for managing custom icons for files and folders",
+  "private": false,
+  "version": "0.1.0",
+  "os": [
+    "darwin"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "fileicon": "bin/fileicon"
+  },
+  "homepage": "https://github.com/mklement0/fileicon",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mklement0/fileicon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mklement0/fileicon/issues"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "keywords": [
+    "custom",
+    "icon",
+    "file",
+    "folder",
+    "cli",
+    "osx"
+  ],
+  "man": "man/fileicon.1",
+  "author": "Michael Klement <mklement0@gmail.com> (http://same2u.net)",
+  "license": "MIT",
+  "net_same2u": {
+    "make_pkg": {
+      "tocOn": true,
+      "tocTitle": "**Contents**"
+    }
+  },
+  "devDependencies": {
+    "doctoc": "^0.13.0",
+    "json": "^9.0.3",
+    "marked-man": "^0.1.5",
+    "replace": "^0.3.0",
+    "semver": "^4.2.0",
+    "tap": "^0.6.0",
+    "urchin": "^0.0.5"
+  }
+}

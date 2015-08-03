@@ -1,0 +1,3 @@
+#!/bin/sh
+
+../../urchin -h|grep -- -f

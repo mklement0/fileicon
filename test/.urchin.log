@@ -1,0 +1,9 @@
+Running tests at 2015-08-03T18:10:08
+0 Prerequisites passed
+1 Icon can be set passed
+2 Icon can be removed passed
+3 Icon can be extracted passed
+4 Existing FinderInfo is preserved passed
+Option --version prints version passed
+Options -h and --help print CLI help passed
+Unknown options cause an error passed
