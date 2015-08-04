@@ -32,7 +32,7 @@ support these attributes; for instance, custom icons cannot be stored in a Git r
 
 # Examples
 
-```
+```shell
 # Assign custom icon derived from image file 'img.png' to file 'foo':
 fileicon set foo img.png
 
