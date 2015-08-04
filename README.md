@@ -23,10 +23,12 @@
 `fileicon` is an OSX CLI for managing custom icons for files and folders, as 
 a programmatic alternative to interactively using Finder.
 
+`fileicon` allows assigning a custom icon to any file or folder,
+using any image file whose format is recognized by the system.
+
 _Caveat_: Custom icons rely on [extended attributes](https://en.wikipedia.org/wiki/Extended_file_attributes#OS_X) of OSX' filesystem, [HFS+](https://en.wikipedia.org/wiki/HFS_Plus);
 therefore, custom icons are lost when copying files or folders to filesystems that don't
-support these attributes; for instance, custom icons are lost when syncing with
-a remote Git repository.
+support these attributes; for instance, custom icons cannot be stored in a Git repository.
 
 # Examples
 
@@ -128,6 +130,10 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.1.1](https://github.com/mklement0/fileicon/compare/v0.1.0...v0.1.1)** (2015-08-03):
+  * [doc] Read-me and manual enhancements.
+  * [dev] Permission-related tests added.
 
 * **v0.1.0** (2015-08-03):
   * Initial release.

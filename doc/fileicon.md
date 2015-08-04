@@ -22,8 +22,6 @@
  Standard options: `--help`, `--man`, `--version`, `--home`
 
 ## DESCRIPTION
-  Manages custom file or folder icons on OSX, as displayed in Finder.
-
   `<fileOrFolder>` is the file or folder whose custom icon should be managed.  
   Note that symlinks are followed to their (ultimate target); that is, you
   can only assign custom icons to regular files and folders, not to symlinks
@@ -50,19 +48,24 @@
     specified output file, if it exists.
 
   * `-q`, `--quiet`  
-    Suppresses output of status information to stdout.  
+    Suppresses output of the status information that is by default output to
+    stdout.  
     Note that errors and warnings are still printed to stderr.
 
 ## NOTES
-  Custom icons are stored in extended attributes of the HFS filesystem.
+  Custom icons are stored in extended attributes of the HFS+ filesystem.
   Thus, if you copy files or folders to a different filesystem that doesn't
-  support such attributes, custom icons are lost.
+  support such attributes, custom icons are lost; for instance, custom icons
+  cannot be stored in a Git repository.
+
+  To determine if a give file or folder has extended attributes, use  
+  `ls -l@ <fileOrFolder>`.
 
   When setting a custom icon, the source image is resized to 128 x 128 pixels
   and stored as a single icon, which the system resizes dynamically, depending
   on context.  
   Currently, even if the source image file is itself an `.icns` file that
-  contains multiple icons for distinct resolutions, only the 128 x 128 icon
+  contains multiple icons with distinct resolutions, only the 128 x 128 icon
   is assigned.
 
 ## STANDARD OPTIONS

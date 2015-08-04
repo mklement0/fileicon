@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# ---
+# IMPORTANT: Use the following statement at the TOP OF EVERY TEST SCRIPT
+#            to ensure that this package's 'bin/' subfolder is added to the path so that
+#            this package's CLIs can be invoked by their mere filename in the rest
+#            of the script.
+# ---
+PATH=${PWD%%/test*}/bin:$PATH
+
+# Helper function for error reporting.
+die() { (( $# > 0 )) && echo "ERROR: $*" >&2; exit 1; }
+
+# Create a temp. dir.
+tmpDir=$(mktemp -d -t XXXX) # Works on both OSX and Linux; note: dir. name will have random extension on OSX (e.g., '.../XXXX.bJViLcM3') and none on Linux (e.g., '.../vXDA')
+trap 'rm -rf "$tmpDir"' EXIT # Set up exit trap to automatically clean up the temp dir.
+
+# Copy fixtures to temp. dir.
+cp -R ./.fixtures/* "$tmpDir/" || die
+
+# Change to temp dir.
+cd "$tmpDir" || die
+
+# -- Attempt to set icon for read-only item
+
+chmod -w folder || die
+
+fileicon set folder img.png && die "Attempt to set icon for read-only folder succeeded unexpectedly."
+
+# Assign icon.
+chmod +w folder
+fileicon set folder img.png || die "Failed to assign icon."
+
+# -- Attempt to extract icon from unreadable item
+
+chmod -r folder
+
+fileicon get folder && die "Attempt to get icon from unreadable file succeeded unexpectedly."
+
+exit 0
