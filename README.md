@@ -32,7 +32,7 @@ support these attributes; for instance, custom icons cannot be stored in a Git r
 
 # Examples
 
-```shell
+```sh
 # Assign custom icon derived from image file 'img.png' to file 'foo':
 fileicon set foo img.png
 
@@ -130,6 +130,9 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.1.2](https://github.com/mklement0/fileicon/compare/v0.1.1...v0.1.2)** (2015-08-04):
+  * [doc] Read-me and manual enhancements.
 
 * **[v0.1.1](https://github.com/mklement0/fileicon/compare/v0.1.0...v0.1.1)** (2015-08-03):
   * [doc] Read-me and manual enhancements.

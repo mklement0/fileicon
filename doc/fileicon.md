@@ -85,3 +85,7 @@
   * `--home`  
     Opens this utility's home page in the system's default web browser.
 
+## LICENSE
+  For license information and more, visit the home page by running  
+  `fileicon --home`
+
