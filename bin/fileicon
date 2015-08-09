@@ -69,7 +69,7 @@ openManPage() {
 printUsage() {
   local embeddedText
   # Extract usage information from the SYNOPSIS chapter of the embedded Markdown-formatted man-page source.
-  embeddedText=$(sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/ { s///; t\np;}' "$BASH_SOURCE" | sed -n -e $'/SYNOPSIS$/,/^[^[:blank:]]/ { s///; t\np;}')
+  embeddedText=$(sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/!d; /SYNOPSIS$/,/^[^ ]/{ s///; t\np; }' "$BASH_SOURCE")
   if [[ -n $embeddedText ]]; then
     # Print extracted synopsis chapter - remove backticks for uncluttered display.
     printf '%s\n' "$embeddedText" | tr -d '`'
