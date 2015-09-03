@@ -12,7 +12,7 @@
 
 kTHIS_NAME=${BASH_SOURCE##*/}
 kTHIS_HOMEPAGE='https://github.com/mklement0/fileicon'
-kTHIS_VERSION='v0.1.2' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
+kTHIS_VERSION='v0.1.3' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
 
 unset CDPATH  # To prevent unpredictable `cd` behavior.
 
@@ -95,7 +95,7 @@ case $1 in
     # Display the manual page and exit.
     openManPage; exit
     ;;
-  --man-md) # private option, used by `make update-doc`
+  --man-embedded) # private option, used by `make update-doc`
     # Print raw, embedded Markdown-formatted man-page source and exit
     printManPageSource; exit
     ;;
@@ -321,8 +321,6 @@ testForCustomIcon() {
 
 # --- Begin: SPECIFIC SCRIPT-GLOBAL CONSTANTS
 
-unset CDPATH  # to prevent unexpected `cd` behavior
-
 kFILENAME_FOLDERCUSTOMICON=$'Icon\r'
 
 # The blank hex dump form (single string of pairs of hex digits) of the 32-byte data structure stored in extended attribute
@@ -489,15 +487,15 @@ esac
 exit 0
 
 # Embed Markdown-formatted documentation below. 
-#  Use 2-space indentation for plain-text rendering; 4-space indentation, as usual, for code blocks.
-#  - The SYNOPSIS chapter is extracted when -h/--help is invoked.
+#  Use 1-space indentation for plain-text rendering; 4-space indentation, as usual, for code blocks.
+#  - The contents of the SYNOPSIS chapter is extracted when -h/--help is invoked.
 #  - To support plain-text rendering in the terminal, limit lines to 80 chars.
 #  - For the benefit of proper presentation in rendered Markdown:
 #    - Mark every explicit line break with 2 trailing spaces, 
 #      including at the end of list items.
 #    - To associate more than 1 paragraph with a list item, use the following TRICK:
 #      To produce an empty line while still keeping the text attached to the list item,
-#      use '&nbsp;<space><space>'.
+#      use '&nbsp;<space><space>', though note that introduces noise in plain-text rendering.
 : <<'EOF_MAN_PAGE' # DO NOT ALTER THIS LINE.
 # fileicon(1) - manage custom icons for files and folders
 

@@ -71,7 +71,7 @@ With [Node.js](http://nodejs.org/) or [io.js](https://iojs.org/) installed, inst
 
 # Usage
 
-Find brief usage information below; for complete documentation, refer to the [manual](doc/fileicon.md).
+Find brief usage information below; for complete documentation, run `fileicon --man`, or read the [manual online](doc/fileicon.md).
 
 <!-- DO NOT EDIT THE FENCED CODE BLOCK and RETAIN THIS COMMENT: The fenced code block below is updated by `make update-readme/release` with CLI usage information. -->
 
@@ -130,6 +130,9 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.1.3](https://github.com/mklement0/fileicon/compare/v0.1.2...v0.1.3)** (2015-09-02):
+  * [dev, doc] minor tweaks
 
 * **[v0.1.2](https://github.com/mklement0/fileicon/compare/v0.1.1...v0.1.2)** (2015-08-04):
   * [doc] Read-me and manual enhancements.

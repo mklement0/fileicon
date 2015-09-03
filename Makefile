@@ -213,8 +213,9 @@ update-license-year:
 update-doc:
 	@read -r cliName cliPath < <(json -f package.json bin | json -Ma key value | head -n 1) || exit 0; \
 	 ver='v'$$(json -f package.json version) || exit; \
-	 "$$cliPath" --man-md > doc/"$$cliName".md || exit; \
-	 "$$cliPath" --man-md | marked-man --version "$$ver" > man/"$$cliName".1 || exit
+	 mkdir -p doc man; \
+	 "$$cliPath" --man-embedded > doc/"$$cliName".md || exit; \
+	 "$$cliPath" --man-embedded | marked-man --version "$$ver" > man/"$$cliName".1 || exit
 
 
 # --------- Aux. targets
