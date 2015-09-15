@@ -1,9 +1,11 @@
-.TH "FILEICON" "1" "September 2015" "v0.1.4" ""
+.TH "FILEICON" "1" "September 2015" "v0.1.5" ""
 .SH "NAME"
-\fBfileicon\fR \- manage custom icons for files and folders
+\fBfileicon\fR \- manage file and folder custom icons
 .SH SYNOPSIS
 .P
- Set a custom icon for a file or folder:
+Manage custom icons for files and folders on OS X\.
+.P
+SET a custom icon for a file or folder:
 .P
 .RS 2
 .nf
@@ -11,7 +13,7 @@ fileicon set      <fileOrFolder> <imageFile>
 .fi
 .RE
 .P
- Remove a custom icon from a file or folder:
+REMOVE a custom icon from a file or folder:
 .P
 .RS 2
 .nf
@@ -19,15 +21,17 @@ fileicon rm       <fileOrFolder>
 .fi
 .RE
 .P
- Get a file or folder's custom icon:
+GET a file or folder's custom icon:
 .P
 .RS 2
 .nf
 fileicon get [\-f] <fileOrFolder> [<iconOutputFile>]
+
+\-f \.\.\. force replacement of existing output file
 .fi
 .RE
 .P
- Test if a file or folder has a custom icon:
+TEST if a file or folder has a custom icon:
 .P
 .RS 2
 .nf
@@ -35,43 +39,54 @@ fileicon test     <fileOrFolder>
 .fi
 .RE
 .P
- \fB\-q\fP \.\.\.  silence status output
+All forms: option \-q silences status output\.
 .P
- Standard options: \fB\-\-help\fP, \fB\-\-man\fP, \fB\-\-version\fP, \fB\-\-home\fP
+Standard options: \fB\-\-help\fP, \fB\-\-man\fP, \fB\-\-version\fP, \fB\-\-home\fP
 .SH DESCRIPTION
 .P
-  \fB<fileOrFolder>\fP is the file or folder whose custom icon should be managed\.
+\fB<fileOrFolder>\fP is the file or folder whose custom icon should be managed\.
 .br
-  Note that symlinks are followed to their (ultimate target); that is, you
-  can only assign custom icons to regular files and folders, not to symlinks
-  to them\.
-.P
-  \fB<imageFile>\fP can be an image file of any format supported by the system\.
-  It is converted to an icon and assigned to \fB<fileOrFolder>\fP\|\.
-.P
-  \fB<iconOutputFile>\fP specifies the file to extract the custom icon to:
-  If not specified, defaults to the filename of \fB<fileOrFolder>\fP with extension
-  \fB\|\.icns\fP appended\.
+Note that symlinks are followed to their (ultimate target); that is, you
 .br
-  If specified, extension \fB\|\.icns\fP is appended, unless already present\.
-  Either way, extraction will fail if the target file already exists; use
-  \fB\-f\fP to override\.
-  You may specify \fB\-\fP to extract to stdout\.
+can only assign custom icons to regular files and folders, not to symlinks
+.br
+to them\.
 .P
-  Command \fBtest\fP signals with its exit code whether a custom icon is set (0)
-  or not (1); any other exit code signals an unexpected error\.
+\fB<imageFile>\fP can be an image file of any format supported by the system\.
+.br
+It is converted to an icon and assigned to \fB<fileOrFolder>\fP\|\.
 .P
-  \fBOptions\fR:
+\fB<iconOutputFile>\fP specifies the file to extract the custom icon to:
+.br
+If not specified, defaults to the filename of \fB<fileOrFolder>\fP with extension
+.br
+\fB\|\.icns\fP appended\.
+.br
+If specified, extension \fB\|\.icns\fP is appended, unless already present\.
+.br
+Either way, extraction will fail if the target file already exists; use
+.br
+\fB\-f\fP to override\.
+.br
+You may specify \fB\-\fP to extract to stdout\.  
+.P
+Command \fBtest\fP signals with its exit code whether a custom icon is set (0)
+.br
+or not (1); any other exit code signals an unexpected error\.
+.P
+\fBOptions\fR:
 .RS 0
 .IP \(bu 2
 \fB\-f\fP, \fB\-\-force\fP
 .br
 When getting (extracting) a custom icon, forces replacement of the
+.br
 specified output file, if it exists\.
 .IP \(bu 2
 \fB\-q\fP, \fB\-\-quiet\fP
 .br
 Suppresses output of the status information that is by default output to
+.br
 stdout\.
 .br
 Note that errors and warnings are still printed to stderr\.
@@ -79,25 +94,32 @@ Note that errors and warnings are still printed to stderr\.
 .RE
 .SH NOTES
 .P
-  Custom icons are stored in extended attributes of the HFS+ filesystem\.
-  Thus, if you copy files or folders to a different filesystem that doesn't
-  support such attributes, custom icons are lost; for instance, custom icons
-  cannot be stored in a Git repository\.
-.P
-  To determine if a give file or folder has extended attributes, use
+Custom icons are stored in extended attributes of the HFS+ filesystem\.
 .br
-  \fBls \-l@ <fileOrFolder>\fP\|\.
-.P
-  When setting a custom icon, the source image is resized to 128 x 128 pixels
-  and stored as a single icon, which the system resizes dynamically, depending
-  on context\.
+Thus, if you copy files or folders to a different filesystem that doesn't
 .br
-  Currently, even if the source image file is itself an \fB\|\.icns\fP file that
-  contains multiple icons with distinct resolutions, only the 128 x 128 icon
-  is assigned\.
+support such attributes, custom icons are lost; for instance, custom icons
+.br
+cannot be stored in a Git repository\.
+.P
+To determine if a give file or folder has extended attributes, use
+.br
+\fBls \-l@ <fileOrFolder>\fP\|\.
+.P
+When setting a custom icon, the source image is resized to 128 x 128 pixels
+.br
+and stored as a single icon, which the system resizes dynamically, depending
+.br
+on context\.
+.br
+Currently, even if the source image file is itself an \fB\|\.icns\fP file that
+.br
+contains multiple icons with distinct resolutions, only the 128 x 128 icon
+.br
+is assigned\.
 .SH STANDARD OPTIONS
 .P
-  All standard options provide information only\.
+All standard options provide information only\.
 .RS 0
 .IP \(bu 2
 \fB\-h, \-\-help\fP
@@ -120,7 +142,7 @@ Opens this utility's home page in the system's default web browser\.
 .RE
 .SH LICENSE
 .P
-  For license information and more, visit the home page by running
+For license information and more, visit the home page by running
 .br
-  \fBfileicon \-\-home\fP
+\fBfileicon \-\-home\fP
 

@@ -78,25 +78,29 @@ Find concise usage information below; for complete documentation, read the [manu
 ```nohighlight
 $ fileicon --help
 
- Set a custom icon for a file or folder:
+Manage custom icons for files and folders on OS X.
+
+SET a custom icon for a file or folder:
 
     fileicon set      <fileOrFolder> <imageFile>
 
- Remove a custom icon from a file or folder:
+REMOVE a custom icon from a file or folder:
 
     fileicon rm       <fileOrFolder>
 
- Get a file or folder's custom icon:
+GET a file or folder's custom icon:
 
     fileicon get [-f] <fileOrFolder> [<iconOutputFile>]
 
- Test if a file or folder has a custom icon:
+    -f ... force replacement of existing output file
+
+TEST if a file or folder has a custom icon:
 
     fileicon test     <fileOrFolder>
 
- -q ...  silence status output
+All forms: option -q silences status output.
 
- Standard options: --help, --man, --version, --home
+Standard options: --help, --man, --version, --home
 ```
 
 <!-- DO NOT EDIT THE NEXT CHAPTER and RETAIN THIS COMMENT: The next chapter is updated by `make update-readme/release` with the contents of 'LICENSE.md'. ALSO, LEAVE AT LEAST 1 BLANK LINE AFTER THIS COMMENT. -->
@@ -130,6 +134,10 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.1.5](https://github.com/mklement0/fileicon/compare/v0.1.4...v0.1.5)** (2015-09-15):
+  * [doc] Man-page improvements.
+  * [dev] Makefile improvements.
 
 * **[v0.1.4](https://github.com/mklement0/fileicon/compare/v0.1.3...v0.1.4)** (2015-09-14):
   * [fix] Spurious error message no longer prints when invoking `fileicon --man` on a system where the man page isn't installed.

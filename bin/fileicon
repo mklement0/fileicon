@@ -12,7 +12,7 @@
 
 kTHIS_NAME=${BASH_SOURCE##*/}
 kTHIS_HOMEPAGE='https://github.com/mklement0/fileicon'
-kTHIS_VERSION='v0.1.4' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
+kTHIS_VERSION='v0.1.5' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
 
 unset CDPATH  # To prevent unpredictable `cd` behavior.
 
@@ -65,14 +65,14 @@ openManPage() {
   fi  
 }
 
-# Prints the contents of the synopsis chapter of the embedded Markdown-formatted man-page source.
+# Prints the contents of the synopsis chapter of the embedded Markdown-formatted man-page source for quick reference.
 printUsage() {
   local embeddedText
   # Extract usage information from the SYNOPSIS chapter of the embedded Markdown-formatted man-page source.
-  embeddedText=$(sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/!d; /SYNOPSIS$/,/^[^ ]/{ s///; t\np; }' "$BASH_SOURCE")
+  embeddedText=$(sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/!d; /^## SYNOPSIS$/,/^#/{ s///; t\np; }' "$BASH_SOURCE")
   if [[ -n $embeddedText ]]; then
     # Print extracted synopsis chapter - remove backticks for uncluttered display.
-    printf '%s\n' "$embeddedText" | tr -d '`'
+    printf '%s\n\n' "$embeddedText" | tr -d '`'
   else # No SYNOPIS chapter found; fall back to displaying the man page.
     echo "WARNING: usage information not found; opening man page instead." >&2
     openManPage
@@ -95,7 +95,7 @@ case $1 in
     # Display the manual page and exit.
     openManPage; exit
     ;;
-  --man-embedded) # private option, used by `make update-doc`
+  --man-source) # private option, used by `make update-doc`
     # Print raw, embedded Markdown-formatted man-page source and exit
     printManPageSource; exit
     ;;
@@ -497,95 +497,103 @@ exit 0
 #      To produce an empty line while still keeping the text attached to the list item,
 #      use '&nbsp;<space><space>', though note that introduces noise in plain-text rendering.
 : <<'EOF_MAN_PAGE' # DO NOT ALTER THIS LINE.
-# fileicon(1) - manage custom icons for files and folders
+# fileicon(1) - manage file and folder custom icons
 
 ## SYNOPSIS
- Set a custom icon for a file or folder:
+
+Manage custom icons for files and folders on OS X.
+
+SET a custom icon for a file or folder:
 
     fileicon set      <fileOrFolder> <imageFile>
 
- Remove a custom icon from a file or folder:
+REMOVE a custom icon from a file or folder:
 
     fileicon rm       <fileOrFolder>
 
- Get a file or folder's custom icon:
+GET a file or folder's custom icon:
 
     fileicon get [-f] <fileOrFolder> [<iconOutputFile>]
 
- Test if a file or folder has a custom icon:
+    -f ... force replacement of existing output file
+
+TEST if a file or folder has a custom icon:
 
     fileicon test     <fileOrFolder>
 
- `-q` ...  silence status output
+All forms: option -q silences status output.
 
- Standard options: `--help`, `--man`, `--version`, `--home`
+Standard options: `--help`, `--man`, `--version`, `--home`
 
 ## DESCRIPTION
-  `<fileOrFolder>` is the file or folder whose custom icon should be managed.  
-  Note that symlinks are followed to their (ultimate target); that is, you
-  can only assign custom icons to regular files and folders, not to symlinks
-  to them.
 
-  `<imageFile>` can be an image file of any format supported by the system.
-  It is converted to an icon and assigned to `<fileOrFolder>`.
+`<fileOrFolder>` is the file or folder whose custom icon should be managed.  
+Note that symlinks are followed to their (ultimate target); that is, you  
+can only assign custom icons to regular files and folders, not to symlinks  
+to them.
 
-  `<iconOutputFile>` specifies the file to extract the custom icon to:
-  If not specified, defaults to the filename of `<fileOrFolder>` with extension
-  `.icns` appended.  
-  If specified, extension `.icns` is appended, unless already present.
-  Either way, extraction will fail if the target file already exists; use
-  `-f` to override.
-  You may specify `-` to extract to stdout.
+`<imageFile>` can be an image file of any format supported by the system.  
+It is converted to an icon and assigned to `<fileOrFolder>`.
 
-  Command `test` signals with its exit code whether a custom icon is set (0)
-  or not (1); any other exit code signals an unexpected error.
+`<iconOutputFile>` specifies the file to extract the custom icon to:  
+If not specified, defaults to the filename of `<fileOrFolder>` with extension  
+`.icns` appended.  
+If specified, extension `.icns` is appended, unless already present.  
+Either way, extraction will fail if the target file already exists; use  
+`-f` to override.  
+You may specify `-` to extract to stdout.  
 
-  **Options**:
+Command `test` signals with its exit code whether a custom icon is set (0)  
+or not (1); any other exit code signals an unexpected error.
+
+**Options**:
 
   * `-f`, `--force`  
-    When getting (extracting) a custom icon, forces replacement of the
+    When getting (extracting) a custom icon, forces replacement of the  
     specified output file, if it exists.
 
   * `-q`, `--quiet`  
-    Suppresses output of the status information that is by default output to
+    Suppresses output of the status information that is by default output to  
     stdout.  
     Note that errors and warnings are still printed to stderr.
 
 ## NOTES
-  Custom icons are stored in extended attributes of the HFS+ filesystem.
-  Thus, if you copy files or folders to a different filesystem that doesn't
-  support such attributes, custom icons are lost; for instance, custom icons
-  cannot be stored in a Git repository.
 
-  To determine if a give file or folder has extended attributes, use  
-  `ls -l@ <fileOrFolder>`.
+Custom icons are stored in extended attributes of the HFS+ filesystem.  
+Thus, if you copy files or folders to a different filesystem that doesn't  
+support such attributes, custom icons are lost; for instance, custom icons  
+cannot be stored in a Git repository.
 
-  When setting a custom icon, the source image is resized to 128 x 128 pixels
-  and stored as a single icon, which the system resizes dynamically, depending
-  on context.  
-  Currently, even if the source image file is itself an `.icns` file that
-  contains multiple icons with distinct resolutions, only the 128 x 128 icon
-  is assigned.
+To determine if a give file or folder has extended attributes, use  
+`ls -l@ <fileOrFolder>`.
+
+When setting a custom icon, the source image is resized to 128 x 128 pixels  
+and stored as a single icon, which the system resizes dynamically, depending  
+on context.  
+Currently, even if the source image file is itself an `.icns` file that  
+contains multiple icons with distinct resolutions, only the 128 x 128 icon  
+is assigned.
 
 ## STANDARD OPTIONS
 
-  All standard options provide information only.
+All standard options provide information only.
 
-  * `-h, --help`  
-    Prints the contents of the synopsis chapter to stdout for quick reference.
+* `-h, --help`  
+  Prints the contents of the synopsis chapter to stdout for quick reference.
 
-  * `--man`  
-    Displays this manual page, which is a helpful alternative to using `man`, 
-    if the manual page isn't installed.
+* `--man`  
+  Displays this manual page, which is a helpful alternative to using `man`, 
+  if the manual page isn't installed.
 
-  * `--version`  
-    Prints version information.
-    
-  * `--home`  
-    Opens this utility's home page in the system's default web browser.
+* `--version`  
+  Prints version information.
+  
+* `--home`  
+  Opens this utility's home page in the system's default web browser.
 
 ## LICENSE
-  For license information and more, visit the home page by running  
-  `fileicon --home`
+
+For license information and more, visit the home page by running  
+`fileicon --home`
 
 EOF_MAN_PAGE

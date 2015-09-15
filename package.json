@@ -2,7 +2,7 @@
   "name": "fileicon",
   "description": "OSX CLI for managing custom icons for files and folders",
   "private": false,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "os": [
     "darwin"
   ],
@@ -38,7 +38,8 @@
   "net_same2u": {
     "make_pkg": {
       "tocOn": true,
-      "tocTitle": "**Contents**"
+      "tocTitle": "**Contents**",
+      "manOn": true
     }
   },
   "devDependencies": {
