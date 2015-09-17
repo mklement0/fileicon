@@ -78,6 +78,7 @@ Find concise usage information below; for complete documentation, read the [manu
 ```nohighlight
 $ fileicon --help
 
+
 Manage custom icons for files and folders on OS X.
 
 SET a custom icon for a file or folder:
@@ -134,6 +135,10 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.1.6](https://github.com/mklement0/fileicon/compare/v0.1.5...v0.1.6)** (2015-09-16):
+  * [doc] Man-page improvements.
+  * [dev] Makefile improvements.
 
 * **[v0.1.5](https://github.com/mklement0/fileicon/compare/v0.1.4...v0.1.5)** (2015-09-15):
   * [doc] Man-page improvements.

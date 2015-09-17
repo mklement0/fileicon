@@ -39,12 +39,11 @@ to them.
 It is converted to an icon and assigned to `<fileOrFolder>`.
 
 `<iconOutputFile>` specifies the file to extract the custom icon to:  
-If not specified, defaults to the filename of `<fileOrFolder>` with extension  
-`.icns` appended.  
-If specified, extension `.icns` is appended, unless already present.  
-Either way, extraction will fail if the target file already exists; use  
-`-f` to override.  
-You may specify `-` to extract to stdout.  
+Defaults to the filename of `<fileOrFolder>` with extension `.icns` appended.  
+If a value is specified, extension `.icns` is appended, unless already present.  
+Either way, extraction fails if the target file already exists; use `-f` to  
+override.  
+Specify `-` to extract to stdout.  
 
 Command `test` signals with its exit code whether a custom icon is set (0)  
 or not (1); any other exit code signals an unexpected error.
@@ -53,7 +52,7 @@ or not (1); any other exit code signals an unexpected error.
 
   * `-f`, `--force`  
     When getting (extracting) a custom icon, forces replacement of the  
-    specified output file, if it exists.
+    output file, if it already exists.
 
   * `-q`, `--quiet`  
     Suppresses output of the status information that is by default output to  

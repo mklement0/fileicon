@@ -201,7 +201,7 @@ update-man:
 # If man-page creation is turned on: recreate the man page and view it with `man`.
 .PHONY: view-man
 view-man: update-man
-	@manfile=`json -f package.json man` || { echo "ERROR: No `man` property found in 'package.json'." >&2; exit 2; }; \
+	@manfile=`json -f package.json man`; [[ -n $$manfile ]] || { echo "ERROR: No 'man' property found in 'package.json'." >&2; exit 2; }; \
 	 man "$$manfile"
 
 # Toggles inclusion of an auto-updating TOC in README.md via doctoc.

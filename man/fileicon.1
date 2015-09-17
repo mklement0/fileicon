@@ -1,4 +1,4 @@
-.TH "FILEICON" "1" "September 2015" "v0.1.5" ""
+.TH "FILEICON" "1" "September 2015" "v0.1.6" ""
 .SH "NAME"
 \fBfileicon\fR \- manage file and folder custom icons
 .SH SYNOPSIS
@@ -58,17 +58,15 @@ It is converted to an icon and assigned to \fB<fileOrFolder>\fP\|\.
 .P
 \fB<iconOutputFile>\fP specifies the file to extract the custom icon to:
 .br
-If not specified, defaults to the filename of \fB<fileOrFolder>\fP with extension
+Defaults to the filename of \fB<fileOrFolder>\fP with extension \fB\|\.icns\fP appended\.
 .br
-\fB\|\.icns\fP appended\.
+If a value is specified, extension \fB\|\.icns\fP is appended, unless already present\.
 .br
-If specified, extension \fB\|\.icns\fP is appended, unless already present\.
+Either way, extraction fails if the target file already exists; use \fB\-f\fP to
 .br
-Either way, extraction will fail if the target file already exists; use
+override\.
 .br
-\fB\-f\fP to override\.
-.br
-You may specify \fB\-\fP to extract to stdout\.  
+Specify \fB\-\fP to extract to stdout\.  
 .P
 Command \fBtest\fP signals with its exit code whether a custom icon is set (0)
 .br
@@ -81,7 +79,7 @@ or not (1); any other exit code signals an unexpected error\.
 .br
 When getting (extracting) a custom icon, forces replacement of the
 .br
-specified output file, if it exists\.
+output file, if it already exists\.
 .IP \(bu 2
 \fB\-q\fP, \fB\-\-quiet\fP
 .br
