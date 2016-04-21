@@ -4,6 +4,10 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.1.8](https://github.com/mklement0/fileicon/compare/v0.1.7...v0.1.8)** (2016-04-21):
+  * [dev] Refactored exit-code reporting for the 'get' command (no change in functionality.)
+  * [dev] `TODO.md` added.
+
 * **[v0.1.7](https://github.com/mklement0/fileicon/compare/v0.1.6...v0.1.7)** (2016-04-21):
   * [fix] Stored-npm-credentials detection code in the Makefile updated for
           newer npm versions.

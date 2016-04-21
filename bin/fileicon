@@ -12,7 +12,7 @@
 
 kTHIS_NAME=${BASH_SOURCE##*/}
 kTHIS_HOMEPAGE='https://github.com/mklement0/fileicon'
-kTHIS_VERSION='v0.1.7' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
+kTHIS_VERSION='v0.1.8' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
 
 unset CDPATH  # To prevent unpredictable `cd` behavior.
 
@@ -463,11 +463,9 @@ case $cmd in
     (( quiet )) || echo "Custom icon removed from '$targetFileOrFolder'."
     ;;
   'get')
-    getCustomIcon "$targetFileOrFolder" "$outFile"
-    ec=$?
-    (( ec == 0 )) || die
+    getCustomIcon "$targetFileOrFolder" "$outFile" || die
     (( quiet )) || { [[ $outFile != '/dev/stdout' ]] && echo "Custom icon extracted to '$outFile'."; }
-    exit $ec
+    exit 0
     ;;
   'test')
     testForCustomIcon "$targetFileOrFolder"
