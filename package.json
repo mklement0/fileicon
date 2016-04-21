@@ -2,7 +2,7 @@
   "name": "fileicon",
   "description": "OSX CLI for managing custom icons for files and folders",
   "private": false,
-  "version": "0.1.6",
+  "version": "0.1.7",
   "os": [
     "darwin"
   ],
@@ -34,6 +34,9 @@
     "doc": "./doc"
   },
   "author": "Michael Klement <mklement0@gmail.com> (http://same2u.net)",
+  "contributors": [
+    "Zhiming Wang <zmwangx@gmail.com> (http://zmwangx.github.io/)"
+  ],
   "license": "MIT",
   "net_same2u": {
     "make_pkg": {

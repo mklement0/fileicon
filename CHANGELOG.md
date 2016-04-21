@@ -4,6 +4,16 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.1.7](https://github.com/mklement0/fileicon/compare/v0.1.6...v0.1.7)** (2016-04-21):
+  * [fix] Stored-npm-credentials detection code in the Makefile updated for
+          newer npm versions.
+  * [fix] Folder write test is now properly skipped for 'get' and 'test'
+          commands - thanks, @zmwangx.
+  * [fix] 'get' command now properly reports errors if icon extracton fails
+           - thanks, @zmwangx.
+  * [dev] Insignificant trailing whitespace removed - thanks, @zmwangx.  
+  * [dev] Added folder used by tests that was missing from the repo.
+
 * **[v0.1.6](https://github.com/mklement0/fileicon/compare/v0.1.5...v0.1.6)** (2015-09-16):
   * [doc] Man-page improvements.
   * [dev] Makefile improvements.

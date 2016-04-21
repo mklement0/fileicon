@@ -340,4 +340,4 @@ _need-origin:
 .PHONY: _need-npm-credentials
 _need-npm-credentials:
 	@[[ `json -f package.json private` == 'true' ]] && exit 0; \
-	 grep -Eq '^//registry.npmjs.org/:_password' ~/.npmrc || { echo "ERROR: npm-registry credentials not found. Please log in with 'npm login' in order to enable publishing." >&2; exit 2; }; \
+	 grep -Eq '^//registry.npmjs.org/:(_password|_authToken)=' ~/.npmrc || { echo "ERROR: npm-registry credentials not found. Please log in with 'npm login' in order to enable publishing." >&2; exit 2; }; \

@@ -12,7 +12,7 @@
 
 kTHIS_NAME=${BASH_SOURCE##*/}
 kTHIS_HOMEPAGE='https://github.com/mklement0/fileicon'
-kTHIS_VERSION='v0.1.6' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
+kTHIS_VERSION='v0.1.7' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
 
 unset CDPATH  # To prevent unpredictable `cd` behavior.
 
@@ -39,7 +39,7 @@ openUrl() {
       ;;
     *) # Otherwise, assume a Freedesktop-compliant OS, which includes many Linux distros, PC-BSD, OpenSolaris, ...
       cmd=( xdg-open "$url" )
-      ;; 
+      ;;
   esac
   "${cmd[@]}" || { echo "Cannot locate or failed to open default browser; please go to '$url' manually." >&2; return 1; }
 }
@@ -51,7 +51,7 @@ printManPageSource() {
 
 # Opens the man page, if installed; otherwise, tries to display the embedded Markdown-formatted man-page source; if all else fails: tries to display the man page online.
 openManPage() {
-  local pager embeddedText 
+  local pager embeddedText
   if ! man 1 "$kTHIS_NAME" 2>/dev/null; then
     # 2nd attempt: if present, display the embedded Markdown-formatted man-page source
     embeddedText=$(printManPageSource)
@@ -62,7 +62,7 @@ openManPage() {
     else # 3rd attempt: open the the man page on the utility's website
       openUrl "${kTHIS_HOMEPAGE}/doc/${kTHIS_NAME}.md"
     fi
-  fi  
+  fi
 }
 
 # Prints the contents of the synopsis chapter of the embedded Markdown-formatted man-page source for quick reference.
@@ -166,7 +166,6 @@ patchByteInByteString() {
   else
       patchedByte=$byteSpec
   fi
-      
   printf '%s%s%s' "$charsBefore" "$patchedByte" "$charsAfter"
 }
 
@@ -212,8 +211,8 @@ setCustomIcon() {
     # Create the special, hidden file inside the folder that will store the icon in its resource fork.
     targetFileWithResourceFork=${fileOrFolder}/$kFILENAME_FOLDERCUSTOMICON
     : > "$targetFileWithResourceFork" || return
-    # Assign the com.apple.FinderInfo extended attribute with values that identify the file as 
-    # both hidden from Finder and as a custom-icon file for the enclosing folder. 
+    # Assign the com.apple.FinderInfo extended attribute with values that identify the file as
+    # both hidden from Finder and as a custom-icon file for the enclosing folder.
     xattr -wx com.apple.FinderInfo "$kFI_BYTES_CUSTOMICONFILEFORFOLDER" "$targetFileWithResourceFork" || return
   else
     targetFileWithResourceFork=$fileOrFolder
@@ -282,7 +281,7 @@ removeCustomIcon() {
   if [[ -d $fileOrFolder ]]; then
     rm -f "${fileOrFolder}/${kFILENAME_FOLDERCUSTOMICON}"
   else
-    if hasIconsResource "$fileOrFolder"; then  
+    if hasIconsResource "$fileOrFolder"; then
       xattr -d com.apple.ResourceFork "$fileOrFolder"
     fi
   fi
@@ -327,7 +326,7 @@ kFILENAME_FOLDERCUSTOMICON=$'Icon\r'
 # com.apple.FinderInfo
 kFI_BYTES_BLANK='0000000000000000000000000000000000000000000000000000000000000000'
 
-# The hex dump form of the full 32 bytes that Finder assigns to the hidden $'Icon\r' 
+# The hex dump form of the full 32 bytes that Finder assigns to the hidden $'Icon\r'
 # file whose com.apple.ResourceFork extended attribute contains the icon image data for the enclosing folder.
 # The first 8 bytes spell out the magic literal 'iconMACS'; they are followed by the invisibility flag, '40' in the 9th byte, and '10' (?? specifying what?)
 # in the 10th byte.
@@ -388,7 +387,7 @@ while (( $# )); do
     if [[ $1 == '--' ]]; then
       shift; operands+=( "$@" ); break
     elif (( allowOptsAfterOperands )); then
-      operands+=( "$1" ) # continue 
+      operands+=( "$1" ) # continue
     else
       operands=( "$@" )
       break
@@ -416,9 +415,9 @@ esac
 # Target file or folder.
 targetFileOrFolder=$1 imgFile= outFile=
 [[ -f $targetFileOrFolder || -d $targetFileOrFolder ]] || die "Target not found or neither file nor folder: '$targetFileOrFolder'"
-# Make sure the target file/folder is readable, and, unless only extraction is requested, writeable too.
+# Make sure the target file/folder is readable, and, unless only getting or testing for an icon are requested, writeable too.
 [[ -r $targetFileOrFolder ]] || die "Cannot access '$targetFileOrFolder': you do not have read permissions."
-[[ $cmd == 'extract' || -w  $targetFileOrFolder ]] || die "Cannot modify '$targetFileOrFolder': you do not have write permissions."
+[[ $cmd == 'test' || $cmd == 'get' || -w $targetFileOrFolder ]] || die "Cannot modify '$targetFileOrFolder': you do not have write permissions."
 
 # Other operands, if any, and their number.
 valid=0
@@ -466,7 +465,7 @@ case $cmd in
   'get')
     getCustomIcon "$targetFileOrFolder" "$outFile"
     ec=$?
-    (( ec <= 1 )) || die
+    (( ec == 0 )) || die
     (( quiet )) || { [[ $outFile != '/dev/stdout' ]] && echo "Custom icon extracted to '$outFile'."; }
     exit $ec
     ;;
@@ -502,7 +501,7 @@ exit 0
 #     - For better plain-text rendering, leave an empty line after a heading
 #       marked-man will remove it from the ROFF version.
 #     - The first heading must be a level-1 heading containing the utility
-#       name and very brief description; append the manual-section number 
+#       name and very brief description; append the manual-section number
 #       directly to the CLI name; e.g.:
 #         # foo(1) - does bar
 #     - The 2nd, level-2 heading must be '## SYNOPSIS' and the chapter's body
@@ -513,7 +512,7 @@ exit 0
 #         in angle brackets; e.g., '<foo>'
 #     - All other headings should be level-2 headings in ALL-CAPS.
 #   - TEXT
-#      - Use NO indentation for regular chapter text; if you do, it will 
+#      - Use NO indentation for regular chapter text; if you do, it will
 #        be indented further than list items.
 #      - Use 4-space indentation, as usual, for code blocks.
 #      - Markup character-styling markup translates to ROFF rendering as follows:
