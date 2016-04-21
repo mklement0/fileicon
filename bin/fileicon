@@ -416,9 +416,9 @@ esac
 # Target file or folder.
 targetFileOrFolder=$1 imgFile= outFile=
 [[ -f $targetFileOrFolder || -d $targetFileOrFolder ]] || die "Target not found or neither file nor folder: '$targetFileOrFolder'"
-# Make sure the target file/folder is readable, and, unless only extraction is requested, writeable too.
+# Make sure the target file/folder is readable, and, unless only testing or extraction is requested, writeable too.
 [[ -r $targetFileOrFolder ]] || die "Cannot access '$targetFileOrFolder': you do not have read permissions."
-[[ $cmd == 'extract' || -w  $targetFileOrFolder ]] || die "Cannot modify '$targetFileOrFolder': you do not have write permissions."
+[[ $cmd == 'test' || $cmd == 'get' || -w  $targetFileOrFolder ]] || die "Cannot modify '$targetFileOrFolder': you do not have write permissions."
 
 # Other operands, if any, and their number.
 valid=0
