@@ -464,9 +464,7 @@ case $cmd in
     (( quiet )) || echo "Custom icon removed from '$targetFileOrFolder'."
     ;;
   'get')
-    getCustomIcon "$targetFileOrFolder" "$outFile"
-    ec=$?
-    (( ec <= 1 )) || die
+    getCustomIcon "$targetFileOrFolder" "$outFile" || die
     (( quiet )) || { [[ $outFile != '/dev/stdout' ]] && echo "Custom icon extracted to '$outFile'."; }
     exit $ec
     ;;
