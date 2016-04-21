@@ -253,7 +253,7 @@ getCustomIcon() {
   # - the byte offset at which the icns resource begins, via the magic literal identifying an icns resource
   # - the length of the resource, which is encoded in the 4 bytes right after the magic literal.
   read -r byteOffset byteCount < <(getResourceByteString "$fileWithResourceFork" | /usr/bin/awk -F "$kMAGICBYTES_ICNS_RESOURCE" '{ printf "%s %d", (length($1) + 2) / 2, "0x" substr($2, 0, 8) }')
-  (( byteOffset > 0 && byteCount > 0 )) || { echo "Custom-icon file contains no icons resource: '$fileWithResourceFork'" >&2; return 1; }
+  (( byteOffset > 0 && byteCount > 0 )) || { echo "Custom-icon file contains no icons resource: '${fileWithResourceFork/$'\r'/\\r}'" >&2; return 1; }
 
   # Extract the actual bytes using tail and head and save them to the output file.
   tail -c "+${byteOffset}" "$fileWithResourceFork/..namedfork/rsrc" | head -c $byteCount > "$icnsOutFile" || return
