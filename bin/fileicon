@@ -46,7 +46,7 @@ openUrl() {
 
 # Prints the embedded Markdown-formatted man-page source to stdout.
 printManPageSource() {
-  sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/ { s///; t\np;}' "$BASH_SOURCE"
+  /usr/bin/sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/ { s///; t\np;}' "$BASH_SOURCE"
 }
 
 # Opens the man page, if installed; otherwise, tries to display the embedded Markdown-formatted man-page source; if all else fails: tries to display the man page online.
@@ -69,7 +69,7 @@ openManPage() {
 printUsage() {
   local embeddedText
   # Extract usage information from the SYNOPSIS chapter of the embedded Markdown-formatted man-page source.
-  embeddedText=$(sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/!d; /^## SYNOPSIS$/,/^#/{ s///; t\np; }' "$BASH_SOURCE")
+  embeddedText=$(/usr/bin/sed -n -e $'/^: <<\'EOF_MAN_PAGE\'/,/^EOF_MAN_PAGE/!d; /^## SYNOPSIS$/,/^#/{ s///; t\np; }' "$BASH_SOURCE")
   if [[ -n $embeddedText ]]; then
     # Print extracted synopsis chapter - remove backticks for uncluttered display.
     printf '%s\n\n' "$embeddedText" | tr -d '`'
@@ -172,13 +172,13 @@ patchByteInByteString() {
 
 #  hasAttrib <fileOrFolder> <attrib_name>
 hasAttrib() {
-  xattr "$1" | grep -Fqx "$2"
+  xattr "$1" | /usr/bin/grep -Fqx "$2"
 }
 
 #  hasIconsResource <file>
 hasIconsResource() {
   local file=$1
-  getResourceByteString "$file" | grep -Fq "$kMAGICBYTES_ICNS_RESOURCE"
+  getResourceByteString "$file" | /usr/bin/grep -Fq "$kMAGICBYTES_ICNS_RESOURCE"
 }
 
 
@@ -195,7 +195,7 @@ setCustomIcon() {
   #         temporary copy.
 
   # Create a temp. dir. and a temp. copy of the image file inside it.
-  tmpDir=$(mktemp -d -t "$kTHIS_NAME") || return
+  tmpDir=$(/usr/bin/mktemp -d -t "$kTHIS_NAME") || return
   sourceFileWithResourceFork=$tmpDir/${imgFile##*/}
   cp "$imgFile" "$sourceFileWithResourceFork" || return
   # Assign an icon representation of the image file to the image file itself.
@@ -252,7 +252,7 @@ getCustomIcon() {
   # Determine (based on format description at https://en.wikipedia.org/wiki/Apple_Icon_Image_format):
   # - the byte offset at which the icns resource begins, via the magic literal identifying an icns resource
   # - the length of the resource, which is encoded in the 4 bytes right after the magic literal.
-  read -r byteOffset byteCount < <(getResourceByteString "$fileWithResourceFork" | awk -F "$kMAGICBYTES_ICNS_RESOURCE" '{ printf "%s %d", (length($1) + 2) / 2, "0x" substr($2, 0, 8) }')
+  read -r byteOffset byteCount < <(getResourceByteString "$fileWithResourceFork" | /usr/bin/awk -F "$kMAGICBYTES_ICNS_RESOURCE" '{ printf "%s %d", (length($1) + 2) / 2, "0x" substr($2, 0, 8) }')
   (( byteOffset > 0 && byteCount > 0 )) || { echo "Custom-icon file contains no icons resource: '$fileWithResourceFork'" >&2; return 1; }
 
   # Extract the actual bytes using tail and head and save them to the output file.
