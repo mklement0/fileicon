@@ -4,6 +4,9 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.1.9](https://github.com/mklement0/fileicon/compare/v0.1.8...v0.1.9)** (2017-10-12):
+  * [doc] Added warning re lack of macOS 10.13 (High Sierra) support.
+
 * **[v0.1.8](https://github.com/mklement0/fileicon/compare/v0.1.7...v0.1.8)** (2016-04-21):
   * [dev] Refactored exit-code reporting for the 'get' command (no change in functionality.)
   * [dev] `TODO.md` added.

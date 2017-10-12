@@ -20,6 +20,8 @@
 
 # fileicon &mdash; introduction
 
+**Please note: `fileicon` doesn't currently work on macOS 10.13 (High Sierra).**
+
 `fileicon` is an OSX CLI for managing custom icons for files and folders, as 
 a programmatic alternative to interactively using Finder.
 
@@ -108,7 +110,7 @@ Standard options: --help, --man, --version, --home
 
 # License
 
-Copyright (c) 2015-2016 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
+Copyright (c) 2015-2017 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
 
 ## Acknowledgements
 
@@ -135,6 +137,9 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.1.9](https://github.com/mklement0/fileicon/compare/v0.1.8...v0.1.9)** (2017-10-12):
+  * [doc] Added warning re lack of macOS 10.13 (High Sierra) support.
 
 * **[v0.1.8](https://github.com/mklement0/fileicon/compare/v0.1.7...v0.1.8)** (2016-04-21):
   * [dev] Refactored exit-code reporting for the 'get' command (no change in functionality.)
