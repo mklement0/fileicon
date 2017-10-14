@@ -180,9 +180,17 @@ hasIconsResource() {
   getResourceByteString "$file" | /usr/bin/grep -Fq "$kMAGICBYTES_ICNS_RESOURCE"
 }
 
+isHighSierraOrAbove() {
+  (( $(sw_vers -productVersion | awk -F. '{ print $2 }') >= 13 ))
+}
 
 #  setCustomIcon <fileOrFolder> <imgFile>
 setCustomIcon() {
+
+  # !!
+  # !! Sadly, Apple decided to remove the `-i` / `--addicon` option from the `sips` utility.
+  # !!
+  isHighSierraOrAbove && { die "Unfortunately, the SET command is not supported on macOS 10.13 (High Sierra) or above."; }
 
   local fileOrFolder=$1 imgFile=$2 byteStr tmpDir sourceFileWithResourceFork targetFileWithResourceFork
 
@@ -202,7 +210,13 @@ setCustomIcon() {
   sips -i "$sourceFileWithResourceFork" >/dev/null || return
 
   # Make sure a resource fork with icons was actually created.
-  hasIconsResource "$sourceFileWithResourceFork" || { echo "Failed to create resource fork with icons. Typically, this means that the input file is not a (valid) image file: $sourceFileWithResourceFork" >&2; return 1; }
+  hasIconsResource "$sourceFileWithResourceFork" || { 
+    cat >&2 <<EOF
+Failed to create resource fork with icons. Typically, this means that the specified image file is not supported or corrupt: $imgFile
+Supported image formats (see \`man sips\`): jpeg | tiff | png | gif | jp2 | pict | bmp | qtif| psd | sgi | tga
+EOF
+    return 1
+  }
 
   # Step 2: Add the resource fork to the file itself (if target is a file) / to the special hidden file inside the folder (if target is a folder)
 
@@ -399,9 +413,10 @@ done
 # --- End: OPTIONS PARSING: "$@" now contains all operands (non-option arguments).
 
 # Validate the command
-cmd=$1
+cmd=$(printf %s "$1" | tr '[:upper:]' '[:lower:]') # translate to all-lowercase - we don't want the command name to be case-sensitive
+[[ $cmd == 'remove' ]] && cmd='rm'  # support alias 'remove' for 'rm'
 case $cmd in
-  set|get|rm|test)
+  set|get|rm|remove|test)
     shift
     ;;
   *)
@@ -530,9 +545,11 @@ exit 0
 
 ## SYNOPSIS
 
-Manage custom icons for files and folders on OS X.
+Manage custom icons for files and folders on macOS.  
 
 SET a custom icon for a file or folder:
+
+    IMPORTANT: DOES NOT WORK ON macOS 10.13 (High Sierra) OR ABOVE.
 
     fileicon set      <fileOrFolder> <imageFile>
 

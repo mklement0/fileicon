@@ -4,7 +4,8 @@
 
 ## SYNOPSIS
 
-Manage custom icons for files and folders on OS X.
+Manage custom icons for files and folders on macOS.  
+IMPORTANT: DOES NOT WORK ON macOS 10.13 (High Sierra) or above.
 
 SET a custom icon for a file or folder:
 

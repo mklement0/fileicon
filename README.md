@@ -20,15 +20,17 @@
 
 # fileicon &mdash; introduction
 
-**Please note: `fileicon` doesn't currently work on macOS 10.13 (High Sierra).**
+**Please note: `fileicon SET` - the subcommand to assign an icon to a file or
+folder - unfortunately doesn't work on macOS 10.13 (High Sierra), because
+Apple removed the `-i` / `--addicon` option from the `sips` utility.**
 
-`fileicon` is an OSX CLI for managing custom icons for files and folders, as 
+`fileicon` is a macOS CLI for managing custom icons for files and folders, as 
 a programmatic alternative to interactively using Finder.
 
 `fileicon` allows assigning a custom icon to any file or folder,
 using any image file whose format is recognized by the system.
 
-_Caveat_: Custom icons rely on [extended attributes](https://en.wikipedia.org/wiki/Extended_file_attributes#OS_X) of OSX' filesystem, [HFS+](https://en.wikipedia.org/wiki/HFS_Plus);
+_Caveat_: Custom icons rely on [extended attributes](https://en.wikipedia.org/wiki/Extended_file_attributes#OS_X) of the macOS filesystems, [HFS+](https://en.wikipedia.org/wiki/HFS_Plus) and [APFS](https://en.wikipedia.org/wiki/Apple_File_System);
 therefore, custom icons are lost when copying files or folders to filesystems that don't
 support these attributes; for instance, custom icons cannot be stored in a Git repository.
 
