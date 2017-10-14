@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "$variable_set_in_setup"
-[ "$variable_set_in_setup" = '' ]

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-test c = $(../urchin -x .print-arg-3 a 'b b b b' c d e)

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-grep blah .fixtures/bladyblah > /dev/null

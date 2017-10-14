@@ -1,6 +1,0 @@
-#!/bin/sh
-
-cd ..
-export CDPATH=$PWD
-./urchin -f 'tests/urchin exit code' >/dev/null
-
