@@ -21,7 +21,7 @@
 # fileicon &mdash; introduction
 
 **Please note: `fileicon SET` - the subcommand to assign an icon to a file or
-folder - unfortunately doesn't work on macOS 10.13 (High Sierra), because
+folder - unfortunately doesn't work on macOS 10.13 (High Sierra) or above, because
 Apple removed the `-i` / `--addicon` option from the `sips` utility.**
 
 `fileicon` is a macOS CLI for managing custom icons for files and folders, as 
@@ -83,9 +83,11 @@ Find concise usage information below; for complete documentation, read the [manu
 $ fileicon --help
 
 
-Manage custom icons for files and folders on OS X.
+Manage custom icons for files and folders on macOS.  
 
 SET a custom icon for a file or folder:
+
+    IMPORTANT: DOES NOT WORK ON macOS 10.13 (High Sierra) OR ABOVE.
 
     fileicon set      <fileOrFolder> <imageFile>
 
@@ -124,13 +126,13 @@ This project gratefully depends on the following open-source components, accordi
 
 ## npm dependencies
 
-* [doctoc (D)](https://github.com/thlorenz/doctoc)
-* [json (D)](https://github.com/trentm/json)
+* [doctoc (D)](https://github.com/thlorenz/doctoc#readme)
+* [json (D)](https://github.com/trentm/json#readme)
 * [marked-man (D)](https://github.com/kapouer/marked-man#readme)
-* [replace (D)](https://github.com/harthur/replace)
+* [replace (D)](https://github.com/harthur/replace#readme)
 * [semver (D)](https://github.com/npm/node-semver#readme)
-* [tap (D)](https://github.com/isaacs/node-tap)
-* [urchin (D)](https://github.com/tlevine/urchin)
+* [tap (D)](https://github.com/isaacs/node-tap#readme)
+* [urchin (D)](https://github.com/tlevine/urchin#readme)
 
 <!-- DO NOT EDIT THE NEXT CHAPTER and RETAIN THIS COMMENT: The next chapter is updated by `make update-readme/release` with the contents of 'CHANGELOG.md'. ALSO, LEAVE AT LEAST 1 BLANK LINE AFTER THIS COMMENT. -->
 
@@ -139,6 +141,12 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.1.10](https://github.com/mklement0/fileicon/compare/v0.1.9...v0.1.10)** (2017-10-14):
+  * [robustness] Added explicit check and error message for trying to use `fileicon set` on macOS 10.13+
+  * [doc] Improved specificity of warning re lack of macOS 10.13 (High Sierra) support in the read-me file, added
+          warnings to man page and CLI help.
+  * [usability] subcommands are now case-insensitive, and 'remove' is supported as an alias of 'rm'.
 
 * **[v0.1.9](https://github.com/mklement0/fileicon/compare/v0.1.8...v0.1.9)** (2017-10-12):
   * [doc] Added warning re lack of macOS 10.13 (High Sierra) support.

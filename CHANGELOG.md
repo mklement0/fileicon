@@ -4,6 +4,12 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.1.10](https://github.com/mklement0/fileicon/compare/v0.1.9...v0.1.10)** (2017-10-14):
+  * [robustness] Added explicit check and error message for trying to use `fileicon set` on macOS 10.13+
+  * [doc] Improved specificity of warning re lack of macOS 10.13 (High Sierra) support in the read-me file, added
+          warnings to man page and CLI help.
+  * [usability] subcommands are now case-insensitive, and 'remove' is supported as an alias of 'rm'.
+
 * **[v0.1.9](https://github.com/mklement0/fileicon/compare/v0.1.8...v0.1.9)** (2017-10-12):
   * [doc] Added warning re lack of macOS 10.13 (High Sierra) support.
 
