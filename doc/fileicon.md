@@ -8,8 +8,6 @@ Manage custom icons for files and folders on macOS.
 
 SET a custom icon for a file or folder:
 
-    IMPORTANT: DOES NOT WORK ON macOS 10.13 (High Sierra) OR ABOVE.
-
     fileicon set      <fileOrFolder> <imageFile>
 
 REMOVE a custom icon from a file or folder:
@@ -71,12 +69,11 @@ cannot be stored in a Git repository.
 To determine if a give file or folder has extended attributes, use  
 `ls -l@ <fileOrFolder>`.
 
-When setting a custom icon, the source image is resized to 128 x 128 pixels  
-and stored as a single icon, which the system resizes dynamically, depending  
-on context.  
-Currently, even if the source image file is itself an `.icns` file that  
-contains multiple icons with distinct resolutions, only the 128 x 128 icon  
-is assigned.
+When setting an image as a custom icon, a set of icons with several resolutions  
+is created, with the highest resolution at 512 x 512 pixels.
+
+All icons created are square, so images with a non-square aspect ratio will  
+appear distorted; for best results, use square imges.
 
 ## STANDARD OPTIONS
 

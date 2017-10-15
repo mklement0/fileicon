@@ -31,6 +31,15 @@ _Caveat_: Custom icons rely on [extended attributes](https://en.wikipedia.org/wi
 Therefore, custom icons are lost when copying files or folders to filesystems that don't
 support these attributes; for instance, custom icons cannot be stored in a Git repository.
 
+When assigning an image file with `fileicon set`, a set of icons in several
+resolutions is created and stored in the resource fork of the target file itself
+/ of a hidden `Icon\r` file inside the target folder.
+
+The icon with the highest resolution measures 512 x 512 pixels, and the input
+image is scaled accordingly.  
+Note that input images that aren't square can result in distorted icons;
+for best results, provide square images.
+
 # Examples
 
 ```sh
@@ -83,8 +92,6 @@ $ fileicon --help
 Manage custom icons for files and folders on macOS.  
 
 SET a custom icon for a file or folder:
-
-    IMPORTANT: DOES NOT WORK ON macOS 10.13 (High Sierra) OR ABOVE.
 
     fileicon set      <fileOrFolder> <imageFile>
 
@@ -139,14 +146,12 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
-* **[v0.1.10](https://github.com/mklement0/fileicon/compare/v0.1.9...v0.1.10)** (2017-10-14):
-  * [robustness] Added explicit check and error message for trying to use `fileicon set` on macOS 10.13+
-  * [doc] Improved specificity of warning re lack of macOS 10.13 (High Sierra) support in the read-me file, added
-          warnings to man page and CLI help.
+* **[v0.2.0](https://github.com/mklement0/fileicon/compare/v0.1.10...v0.2.0)** (2017-10-14):
+  * [compatibility] macOS 10.13 (High Sierra) is now supported.
+  * [enhancement] Switched from using `sips -i` for icon creation to a Python-based
+                  Cocoa call to `NSWorkSpace.setIcon(_:forFile:options:)`, courtesy of https://apple.stackexchange.com/a/161984/28668
+                  As a result, icons in multiple resolutions are now generated, with a top resolution of 512 x 512 pixels (previously: 128 x 128)
   * [usability] subcommands are now case-insensitive, and 'remove' is supported as an alias of 'rm'.
-
-* **[v0.1.9](https://github.com/mklement0/fileicon/compare/v0.1.8...v0.1.9)** (2017-10-12):
-  * [doc] Added warning re lack of macOS 10.13 (High Sierra) support.
 
 * **[v0.1.8](https://github.com/mklement0/fileicon/compare/v0.1.7...v0.1.8)** (2016-04-21):
   * [dev] Refactored exit-code reporting for the 'get' command (no change in functionality.)

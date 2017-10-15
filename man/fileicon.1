@@ -1,4 +1,4 @@
-.TH "FILEICON" "1" "October 2017" "v0.1.10" ""
+.TH "FILEICON" "1" "October 2017" "v0.2.0" ""
 .SH "NAME"
 \fBfileicon\fR \- manage file and folder custom icons
 .SH SYNOPSIS
@@ -9,8 +9,6 @@ SET a custom icon for a file or folder:
 .P
 .RS 2
 .nf
-IMPORTANT: DOES NOT WORK ON macOS 10\.13 (High Sierra) OR ABOVE\.
-
 fileicon set      <fileOrFolder> <imageFile>
 .fi
 .RE
@@ -106,17 +104,13 @@ To determine if a give file or folder has extended attributes, use
 .br
 \fBls \-l@ <fileOrFolder>\fP\|\.
 .P
-When setting a custom icon, the source image is resized to 128 x 128 pixels
+When setting an image as a custom icon, a set of icons with several resolutions
 .br
-and stored as a single icon, which the system resizes dynamically, depending
+is created, with the highest resolution at 512 x 512 pixels\.
+.P
+All icons created are square, so images with a non\-square aspect ratio will
 .br
-on context\.
-.br
-Currently, even if the source image file is itself an \fB\|\.icns\fP file that
-.br
-contains multiple icons with distinct resolutions, only the 128 x 128 icon
-.br
-is assigned\.
+appear distorted; for best results, use square imges\.
 .SH STANDARD OPTIONS
 .P
 All standard options provide information only\.
