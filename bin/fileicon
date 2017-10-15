@@ -180,69 +180,44 @@ hasIconsResource() {
   getResourceByteString "$file" | /usr/bin/grep -Fq "$kMAGICBYTES_ICNS_RESOURCE"
 }
 
-isHighSierraOrAbove() {
-  (( $(sw_vers -productVersion | awk -F. '{ print $2 }') >= 13 ))
-}
 
 #  setCustomIcon <fileOrFolder> <imgFile>
 setCustomIcon() {
 
-  # !!
-  # !! Sadly, Apple decided to remove the `-i` / `--addicon` option from the `sips` utility.
-  # !!
-  isHighSierraOrAbove && { die "Unfortunately, the SET command is not supported on macOS 10.13 (High Sierra) or above."; }
-
-  local fileOrFolder=$1 imgFile=$2 byteStr tmpDir sourceFileWithResourceFork targetFileWithResourceFork
+  local fileOrFolder=$1 imgFile=$2
 
   [[ (-f $fileOrFolder || -d $fileOrFolder) && -r $fileOrFolder && -w $fileOrFolder ]] || return 3
   [[ -f $imgFile ]] || return 3
 
-  # Step 1: Create the icns resource by using `sips -i` on a temporary copy of the
-  #         image file, which puts the icns resource into the resource fork of that
-  #         temporary copy.
+  # !!
+  # !! Sadly, Apple decided to remove the `-i` / `--addicon` option from the `sips` utility.
+  # !! Therefore, use of *Cocoa* is required, which we do *via Python*, which has the added advantage
+  # !! of creating a *set* of icons from the source image, scaling as necessary to create a
+  # !! 512 x 512 top resolution icon (whereas sips -i created a single, 128 x 128 icon).
+  # !! Thanks, https://apple.stackexchange.com/a/161984/28668
+  # !!
+  # !! Note: setIcon_forFile_options_() seemingly always indicates True, even with invalid image files, so
+  # !!       we attempt no error handling in the Python code.
+  /usr/bin/python - "$imgFile" "$fileOrFolder" <<'EOF' || return
+import Cocoa
+import sys
 
-  # Create a temp. dir. and a temp. copy of the image file inside it.
-  tmpDir=$(/usr/bin/mktemp -d -t "$kTHIS_NAME") || return
-  sourceFileWithResourceFork=$tmpDir/${imgFile##*/}
-  cp "$imgFile" "$sourceFileWithResourceFork" || return
-  # Assign an icon representation of the image file to the image file itself.
-  # This creates the resource fork we'll copy.
-  sips -i "$sourceFileWithResourceFork" >/dev/null || return
+Cocoa.NSWorkspace.sharedWorkspace().setIcon_forFile_options_(Cocoa.NSImage.alloc().initWithContentsOfFile_(sys.argv[1].decode('utf-8')), sys.argv[2].decode('utf-8'), 0)
+EOF
 
-  # Make sure a resource fork with icons was actually created.
-  hasIconsResource "$sourceFileWithResourceFork" || { 
+
+  # Verify that a resource fork with icons was actually created.
+  # For *files*, the resource fork is embedded in the file itself.
+  # For *folders* a hidden file named $'Icon\r' is created *inside the folder*.
+  [[ -d $fileOrFolder ]] && fileWithResourceFork=${fileOrFolder}/$kFILENAME_FOLDERCUSTOMICON || fileWithResourceFork=$fileOrFolder
+  hasIconsResource "$fileWithResourceFork" || { 
     cat >&2 <<EOF
 Failed to create resource fork with icons. Typically, this means that the specified image file is not supported or corrupt: $imgFile
-Supported image formats (see \`man sips\`): jpeg | tiff | png | gif | jp2 | pict | bmp | qtif| psd | sgi | tga
+Supported image formats: jpeg | tiff | png | gif | jp2 | pict | bmp | qtif| psd | sgi | tga
 EOF
     return 1
+
   }
-
-  # Step 2: Add the resource fork to the file itself (if target is a file) / to the special hidden file inside the folder (if target is a folder)
-
-  # Determine what file to copy the resource fork to.
-  if [[ -d $fileOrFolder ]]; then
-    # Create the special, hidden file inside the folder that will store the icon in its resource fork.
-    targetFileWithResourceFork=${fileOrFolder}/$kFILENAME_FOLDERCUSTOMICON
-    : > "$targetFileWithResourceFork" || return
-    # Assign the com.apple.FinderInfo extended attribute with values that identify the file as
-    # both hidden from Finder and as a custom-icon file for the enclosing folder.
-    xattr -wx com.apple.FinderInfo "$kFI_BYTES_CUSTOMICONFILEFORFOLDER" "$targetFileWithResourceFork" || return
-  else
-    targetFileWithResourceFork=$fileOrFolder
-  fi
-
-  # Copy the resource fork to the target file.
-  cp "$sourceFileWithResourceFork/..namedfork/rsrc" "$targetFileWithResourceFork/..namedfork/rsrc" || { rm -rf "$tmpDir"; return 1; } && rm -rf "$tmpDir"
-
-  # Step 3: Turn on the custom-icon flag in the com.apple.FinderInfo extended attribute for the target file/folder itself.
-  if hasAttrib "$fileOrFolder" com.apple.FinderInfo; then
-    byteStr=$(getAttribByteString "$fileOrFolder" com.apple.FinderInfo) || return
-  else
-    byteStr=$kFI_BYTES_BLANK
-  fi
-  byteStr=$(printf %s "$byteStr" | patchByteInByteString $kFI_BYTEOFFSET_CUSTOMICON '|'$kFI_VAL_CUSTOMICON) || return
-  xattr -wx com.apple.FinderInfo "$byteStr" "$fileOrFolder" || return
 
   return 0
 }
@@ -549,8 +524,6 @@ Manage custom icons for files and folders on macOS.
 
 SET a custom icon for a file or folder:
 
-    IMPORTANT: DOES NOT WORK ON macOS 10.13 (High Sierra) OR ABOVE.
-
     fileicon set      <fileOrFolder> <imageFile>
 
 REMOVE a custom icon from a file or folder:
@@ -612,12 +585,11 @@ cannot be stored in a Git repository.
 To determine if a give file or folder has extended attributes, use  
 `ls -l@ <fileOrFolder>`.
 
-When setting a custom icon, the source image is resized to 128 x 128 pixels  
-and stored as a single icon, which the system resizes dynamically, depending  
-on context.  
-Currently, even if the source image file is itself an `.icns` file that  
-contains multiple icons with distinct resolutions, only the 128 x 128 icon  
-is assigned.
+When setting an image as a custom icon, a set of icons with several resolutions  
+is created, with the highest resolution at 512 x 512 pixels.
+
+All icons created are square, so images with a non-square aspect ratio will  
+appear distorted; for best results, use square imges.
 
 ## STANDARD OPTIONS
 
