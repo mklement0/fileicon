@@ -24,7 +24,7 @@
 a programmatic alternative to interactively using Finder.
 
 `fileicon` allows assigning a custom icon to any file or folder,
-using any image file whose format is recognized by the system.
+using [any image file whose format is recognized by the system](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CocoaDrawingGuide/Images/Images.html#//apple_ref/doc/uid/TP40003290-CH208-BCIIFBJG).
 
 _Caveat_: Custom icons rely on [extended attributes](https://en.wikipedia.org/wiki/Extended_file_attributes#OS_X) of the macOS filesystems, 
 [HFS+](https://en.wikipedia.org/wiki/HFS_Plus) and [APFS](https://en.wikipedia.org/wiki/Apple_File_System).
@@ -118,7 +118,7 @@ Standard options: --help, --man, --version, --home
 
 # License
 
-Copyright (c) 2015-2017 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
+Copyright (c) 2015-2018 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
 
 ## Acknowledgements
 
@@ -146,11 +146,18 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.2.1](https://github.com/mklement0/fileicon/compare/v0.2.0...v0.2.1)** (2018-01-13):
+  * [doc] Read-me improvements re supported image formats.
+  * [enhancement] Improved wording of error message on attempting to use a pipe
+    such as via a process subsitution (`<(...)`) in lieu fo an actual image file,
+    which is not supported.
+
 * **[v0.2.0](https://github.com/mklement0/fileicon/compare/v0.1.10...v0.2.0)** (2017-10-14):
   * [compatibility] macOS 10.13 (High Sierra) is now supported.
   * [enhancement] Switched from using `sips -i` for icon creation to a Python-based
                   Cocoa call to `NSWorkSpace.setIcon(_:forFile:options:)`, courtesy of https://apple.stackexchange.com/a/161984/28668
                   As a result, icons in multiple resolutions are now generated, with a top resolution of 512 x 512 pixels (previously: 128 x 128)
+  * [doc] More technical background added to `README.md`.
   * [usability] subcommands are now case-insensitive, and 'remove' is supported as an alias of 'rm'.
 
 * **[v0.1.8](https://github.com/mklement0/fileicon/compare/v0.1.7...v0.1.8)** (2016-04-21):

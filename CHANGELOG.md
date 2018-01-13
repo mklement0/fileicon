@@ -4,6 +4,12 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.2.1](https://github.com/mklement0/fileicon/compare/v0.2.0...v0.2.1)** (2018-01-13):
+  * [doc] Read-me improvements re supported image formats.
+  * [enhancement] Improved wording of error message on attempting to use a pipe
+    such as via a process subsitution (`<(...)`) in lieu fo an actual image file,
+    which is not supported.
+
 * **[v0.2.0](https://github.com/mklement0/fileicon/compare/v0.1.10...v0.2.0)** (2017-10-14):
   * [compatibility] macOS 10.13 (High Sierra) is now supported.
   * [enhancement] Switched from using `sips -i` for icon creation to a Python-based

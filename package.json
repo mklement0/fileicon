@@ -2,7 +2,7 @@
   "name": "fileicon",
   "description": "OSX CLI for managing custom icons for files and folders",
   "private": false,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "os": [
     "darwin"
   ],

@@ -12,7 +12,7 @@
 
 kTHIS_NAME=${BASH_SOURCE##*/}
 kTHIS_HOMEPAGE='https://github.com/mklement0/fileicon'
-kTHIS_VERSION='v0.2.0' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
+kTHIS_VERSION='v0.2.1' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
 
 unset CDPATH  # To prevent unpredictable `cd` behavior.
 
@@ -85,7 +85,7 @@ printUsage() {
 case $1 in
   --version)
     # Output version number and exit, if requested.
-    ver="v0.2.0"; echo "$kTHIS_NAME $kTHIS_VERSION"$'\nFor license information and more, visit '"$kTHIS_HOMEPAGE"; exit 0
+    ver="v0.2.1"; echo "$kTHIS_NAME $kTHIS_VERSION"$'\nFor license information and more, visit '"$kTHIS_HOMEPAGE"; exit 0
     ;;
   -h|--help)
     # Print usage information and exit.
@@ -416,7 +416,9 @@ case $cmd in
     (( $# == 2 )) && {
       valid=1
       imgFile=$2
-      [[ -f $imgFile && -r $imgFile ]] || die "Image file not found or not a (readable) file: $imgFile"
+      # !! Apparently, a regular file is required - a process subsitution such 
+      # !! as `<(base64 -D <encoded-file.txt)` is NOT supported by NSImage.initWithContentsOfFile()
+      [[ -f $imgFile && -r $imgFile ]] || die "Image file not found or not a (readable) regular file: $imgFile"
     }
     ;;
   'rm'|'test')
