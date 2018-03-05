@@ -1,4 +1,4 @@
-.TH "FILEICON" "1" "January 2018" "v0.2.1" ""
+.TH "FILEICON" "1" "March 2018" "v0.2.2" ""
 .SH "NAME"
 \fBfileicon\fR \- manage file and folder custom icons
 .SH SYNOPSIS
@@ -9,7 +9,7 @@ SET a custom icon for a file or folder:
 .P
 .RS 2
 .nf
-fileicon set      <fileOrFolder> <imageFile>
+fileicon set      <fileOrFolder> [<imageFile>]
 .fi
 .RE
 .P
@@ -55,6 +55,9 @@ to them\.
 \fB<imageFile>\fP can be an image file of any format supported by the system\.
 .br
 It is converted to an icon and assigned to \fB<fileOrFolder>\fP\|\.
+.br
+If you omit \fB<imageFile>\fP, \fB<fileOrFolder>\fP must itself be an image file whose
+image should become its own icon\.
 .P
 \fB<iconOutputFile>\fP specifies the file to extract the custom icon to:
 .br

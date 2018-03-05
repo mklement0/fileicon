@@ -8,7 +8,7 @@ Manage custom icons for files and folders on macOS.
 
 SET a custom icon for a file or folder:
 
-    fileicon set      <fileOrFolder> <imageFile>
+    fileicon set      <fileOrFolder> [<imageFile>]
 
 REMOVE a custom icon from a file or folder:
 
@@ -36,7 +36,9 @@ can only assign custom icons to regular files and folders, not to symlinks
 to them.
 
 `<imageFile>` can be an image file of any format supported by the system.  
-It is converted to an icon and assigned to `<fileOrFolder>`.
+It is converted to an icon and assigned to `<fileOrFolder>`.  
+If you omit `<imageFile>`, `<fileOrFolder>` must itself be an image file whose
+image should become its own icon.
 
 `<iconOutputFile>` specifies the file to extract the custom icon to:  
 Defaults to the filename of `<fileOrFolder>` with extension `.icns` appended.  

@@ -12,7 +12,7 @@
 
 kTHIS_NAME=${BASH_SOURCE##*/}
 kTHIS_HOMEPAGE='https://github.com/mklement0/fileicon'
-kTHIS_VERSION='v0.2.1' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
+kTHIS_VERSION='v0.2.2' # NOTE: This assignment is automatically updated by `make version VER=<newVer>` - DO keep the 'v' prefix.
 
 unset CDPATH  # To prevent unpredictable `cd` behavior.
 
@@ -85,7 +85,7 @@ printUsage() {
 case $1 in
   --version)
     # Output version number and exit, if requested.
-    ver="v0.2.1"; echo "$kTHIS_NAME $kTHIS_VERSION"$'\nFor license information and more, visit '"$kTHIS_HOMEPAGE"; exit 0
+    ver="v0.2.2"; echo "$kTHIS_NAME $kTHIS_VERSION"$'\nFor license information and more, visit '"$kTHIS_HOMEPAGE"; exit 0
     ;;
   -h|--help)
     # Print usage information and exit.
@@ -413,9 +413,10 @@ targetFileOrFolder=$1 imgFile= outFile=
 valid=0
 case $cmd in
   'set')
-    (( $# == 2 )) && {
+    (( $# <= 2 )) && {
       valid=1
-      imgFile=$2
+      # If no image file was specified, the target file is assumed to be an image file itself whose image should be self-assigned as an icon.
+      (( $# == 2 )) && imgFile=$2 || imgFile=$1
       # !! Apparently, a regular file is required - a process subsitution such 
       # !! as `<(base64 -D <encoded-file.txt)` is NOT supported by NSImage.initWithContentsOfFile()
       [[ -f $imgFile && -r $imgFile ]] || die "Image file not found or not a (readable) regular file: $imgFile"
@@ -526,7 +527,7 @@ Manage custom icons for files and folders on macOS.
 
 SET a custom icon for a file or folder:
 
-    fileicon set      <fileOrFolder> <imageFile>
+    fileicon set      <fileOrFolder> [<imageFile>]
 
 REMOVE a custom icon from a file or folder:
 
@@ -554,7 +555,9 @@ can only assign custom icons to regular files and folders, not to symlinks
 to them.
 
 `<imageFile>` can be an image file of any format supported by the system.  
-It is converted to an icon and assigned to `<fileOrFolder>`.
+It is converted to an icon and assigned to `<fileOrFolder>`.  
+If you omit `<imageFile>`, `<fileOrFolder>` must itself be an image file whose
+image should become its own icon.
 
 `<iconOutputFile>` specifies the file to extract the custom icon to:  
 Defaults to the filename of `<fileOrFolder>` with extension `.icns` appended.  
