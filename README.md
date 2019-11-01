@@ -9,6 +9,7 @@
 - [Examples](#examples)
 - [Installation](#installation)
   - [Installation from the npm registry](#installation-from-the-npm-registry)
+  - [Installation via [Homebrew](https://brew.sh/) (macOS)](#installation-via-homebrewhttpsbrewsh-macos)
   - [Manual installation](#manual-installation)
 - [Usage](#usage)
 - [License](#license)
@@ -64,7 +65,7 @@ fileicon test foodir
 
 ## Installation from the npm registry
 
-With [Node.js](http://nodejs.org/) or [io.js](https://iojs.org/) installed, install [the package](https://www.npmjs.com/package/fileicon) as follows:
+With [Node.js](http://nodejs.org/) installed, install [the package](https://www.npmjs.com/package/fileicon) as follows:
 
     [sudo] npm install fileicon -g
 
@@ -72,6 +73,14 @@ With [Node.js](http://nodejs.org/) or [io.js](https://iojs.org/) installed, inst
 
 * Whether you need `sudo` depends on how you installed Node.js / io.js and whether you've [changed permissions later](https://docs.npmjs.com/getting-started/fixing-npm-permissions); if you get an `EACCES` error, try again with `sudo`.
 * The `-g` ensures [_global_ installation](https://docs.npmjs.com/getting-started/installing-npm-packages-globally) and is needed to put `fileicon` in your system's `$PATH`.
+
+## Installation via [Homebrew](https://brew.sh/) (macOS)
+
+```sh
+brew install https://raw.githubusercontent.com/mklement0/fileicon/master/fileicon.rb
+```
+
+<sup>Tip of the hat to [@danielbayley](https://github.com/danielbayley) for supplying the formula.</sup>
 
 ## Manual installation
 
@@ -132,10 +141,11 @@ This project gratefully depends on the following open-source components, accordi
 
 * [doctoc (D)](https://github.com/thlorenz/doctoc#readme)
 * [json (D)](https://github.com/trentm/json#readme)
+* [marked (D)](https://marked.js.org)
 * [marked-man (D)](https://github.com/kapouer/marked-man#readme)
-* [replace (D)](https://github.com/harthur/replace#readme)
+* [replace (D)](https://github.com/ALMaclaine/replace#readme)
 * [semver (D)](https://github.com/npm/node-semver#readme)
-* [tap (D)](https://github.com/isaacs/node-tap#readme)
+* [tap (D)](http://www.node-tap.org/)
 * [urchin (D)](https://github.com/tlevine/urchin#readme)
 
 <!-- DO NOT EDIT THE NEXT CHAPTER and RETAIN THIS COMMENT: The next chapter is updated by `make update-readme/release` with the contents of 'CHANGELOG.md'. ALSO, LEAVE AT LEAST 1 BLANK LINE AFTER THIS COMMENT. -->
@@ -145,6 +155,11 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.2.3](https://github.com/mklement0/fileicon/compare/v0.2.2...v0.2.3)** (2019-11-01):
+  * [enhancement] Installation via Homebrew is now possible on macOS.
+  * [doc] `README.md` updated with Homebrew installation instructions.
+  * [dev] Updated dev-time-only packages to fix security issues.
 
 * **[v0.2.2](https://github.com/mklement0/fileicon/compare/v0.2.1...v0.2.2)** (2018-03-05):
   * [enhancement] `filecon set <file>` is now short for `filecon set <file> <file>`; that is, you can now more 

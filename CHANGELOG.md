@@ -4,6 +4,11 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.2.3](https://github.com/mklement0/fileicon/compare/v0.2.2...v0.2.3)** (2019-11-01):
+  * [enhancement] Installation via Homebrew is now possible on macOS.
+  * [doc] `README.md` updated with Homebrew installation instructions.
+  * [dev] Updated dev-time-only packages to fix security issues.
+
 * **[v0.2.2](https://github.com/mklement0/fileicon/compare/v0.2.1...v0.2.2)** (2018-03-05):
   * [enhancement] `filecon set <file>` is now short for `filecon set <file> <file>`; that is, you can now more 
     conveniently make an image file use itself as its icon.
