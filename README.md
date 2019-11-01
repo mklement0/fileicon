@@ -71,7 +71,7 @@ With [Node.js](http://nodejs.org/) installed, install [the package](https://www.
 
 **Note**:
 
-* Whether you need `sudo` depends on how you installed Node.js / io.js and whether you've [changed permissions later](https://docs.npmjs.com/getting-started/fixing-npm-permissions); if you get an `EACCES` error, try again with `sudo`.
+* Whether you need `sudo` depends on how you installed Node.js and whether you've [changed permissions later](https://docs.npmjs.com/getting-started/fixing-npm-permissions); if you get an `EACCES` error, try again with `sudo`.
 * The `-g` ensures [_global_ installation](https://docs.npmjs.com/getting-started/installing-npm-packages-globally) and is needed to put `fileicon` in your system's `$PATH`.
 
 ## Installation via [Homebrew](https://brew.sh/) (macOS)
