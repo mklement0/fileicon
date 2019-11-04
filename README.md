@@ -9,7 +9,7 @@
 - [Examples](#examples)
 - [Installation](#installation)
   - [Installation from the npm registry](#installation-from-the-npm-registry)
-  - [Installation via [Homebrew](https://brew.sh/) (macOS)](#installation-via-homebrewhttpsbrewsh-macos)
+  - [Installation via Homebrew (macOS)](#installation-via-homebrew-macos)
   - [Manual installation](#manual-installation)
 - [Usage](#usage)
 - [License](#license)
@@ -74,7 +74,9 @@ With [Node.js](http://nodejs.org/) installed, install [the package](https://www.
 * Whether you need `sudo` depends on how you installed Node.js and whether you've [changed permissions later](https://docs.npmjs.com/getting-started/fixing-npm-permissions); if you get an `EACCES` error, try again with `sudo`.
 * The `-g` ensures [_global_ installation](https://docs.npmjs.com/getting-started/installing-npm-packages-globally) and is needed to put `fileicon` in your system's `$PATH`.
 
-## Installation via [Homebrew](https://brew.sh/) (macOS)
+## Installation via Homebrew (macOS)
+
+With [Homebrew](https://brew.sh/) installed, run the following:
 
 ```sh
 brew install https://raw.githubusercontent.com/mklement0/fileicon/master/fileicon.rb
@@ -127,7 +129,7 @@ Standard options: --help, --man, --version, --home
 
 # License
 
-Copyright (c) 2015-2018 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
+Copyright (c) 2015-2019 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
 
 ## Acknowledgements
 
