@@ -79,10 +79,10 @@ With [Node.js](http://nodejs.org/) installed, install [the package](https://www.
 With [Homebrew](https://brew.sh/) installed, run the following:
 
 ```sh
-brew install https://raw.githubusercontent.com/mklement0/fileicon/master/fileicon.rb
+brew install fileicon
 ```
 
-<sup>Tip of the hat to [@danielbayley](https://github.com/danielbayley) for supplying the formula.</sup>
+<sup>Tip of the hat to [@danielbayley](https://github.com/danielbayley) for submitting the formula.</sup>
 
 ## Manual installation
 
