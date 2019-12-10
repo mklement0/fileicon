@@ -4,6 +4,9 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.2.4](https://github.com/mklement0/fileicon/compare/v0.2.3...v0.2.4)** (2019-12-10):
+  * [installation] Thanks to @danielbayley, there is now an official Homebrew formula.
+
 * **[v0.2.3](https://github.com/mklement0/fileicon/compare/v0.2.2...v0.2.3)** (2019-11-01):
   * [enhancement] Installation via Homebrew is now possible on macOS.
   * [doc] `README.md` updated with Homebrew installation instructions.

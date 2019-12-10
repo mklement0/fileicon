@@ -8,8 +8,8 @@
 - [fileicon &mdash; introduction](#fileicon-&mdash-introduction)
 - [Examples](#examples)
 - [Installation](#installation)
+  - [Installation via Homebrew](#installation-via-homebrew)
   - [Installation from the npm registry](#installation-from-the-npm-registry)
-  - [Installation via Homebrew (macOS)](#installation-via-homebrew-macos)
   - [Manual installation](#manual-installation)
 - [Usage](#usage)
 - [License](#license)
@@ -59,30 +59,32 @@ fileicon test foodir
 
 # Installation
 
-**Supported platforms**
+**Supported platforms:**
 
 * **macOS**
+
+## Installation via Homebrew
+
+With [Homebrew](https://brew.sh/) installed, run the following:
+
+```sh
+brew install fileicon
+```
+
+<sup>Tip of the hat to [@danielbayley](https://github.com/danielbayley) for creating and submitting the formula.</sup>
 
 ## Installation from the npm registry
 
 With [Node.js](http://nodejs.org/) installed, install [the package](https://www.npmjs.com/package/fileicon) as follows:
 
-    [sudo] npm install fileicon -g
+```sh
+[sudo] npm install fileicon -g
+```
 
 **Note**:
 
 * Whether you need `sudo` depends on how you installed Node.js and whether you've [changed permissions later](https://docs.npmjs.com/getting-started/fixing-npm-permissions); if you get an `EACCES` error, try again with `sudo`.
 * The `-g` ensures [_global_ installation](https://docs.npmjs.com/getting-started/installing-npm-packages-globally) and is needed to put `fileicon` in your system's `$PATH`.
-
-## Installation via Homebrew (macOS)
-
-With [Homebrew](https://brew.sh/) installed, run the following:
-
-```sh
-brew install https://raw.githubusercontent.com/mklement0/fileicon/master/fileicon.rb
-```
-
-<sup>Tip of the hat to [@danielbayley](https://github.com/danielbayley) for supplying the formula.</sup>
 
 ## Manual installation
 
@@ -157,6 +159,9 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.2.4](https://github.com/mklement0/fileicon/compare/v0.2.3...v0.2.4)** (2019-12-10):
+  * [installation] Thanks to @danielbayley, there is now an official Homebrew formula.
 
 * **[v0.2.3](https://github.com/mklement0/fileicon/compare/v0.2.2...v0.2.3)** (2019-11-01):
   * [enhancement] Installation via Homebrew is now possible on macOS.
