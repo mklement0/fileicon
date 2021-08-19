@@ -41,6 +41,10 @@ image is scaled accordingly.
 Note that input images that aren't square can result in distorted icons;
 for best results, provide square images.
 
+Note that if you supply an input path to a _symlink_, it is invariably its
+_target_ that is used for the operation; symlinks themselves cannot have
+icons associated with them.
+
 # Examples
 
 ```sh
