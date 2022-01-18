@@ -45,6 +45,8 @@ Note that if you supply an input path to a _symlink_, it is invariably its
 _target_ that is used for the operation; symlinks themselves cannot have
 icons associated with them.
 
+See also: [Icon Changer](https://github.com/chris1111/Icon-Changer), a GUI utility that uses `fileicon` behind the scenes.
+
 # Examples
 
 ```sh
