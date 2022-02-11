@@ -5,7 +5,7 @@
 
 **Contents**
 
-- [fileicon &mdash; introduction](#fileicon-&mdash-introduction)
+- [fileicon &mdash; introduction](#fileicon-mdash-introduction)
 - [Examples](#examples)
 - [Installation](#installation)
   - [Installation via Homebrew](#installation-via-homebrew)
@@ -68,6 +68,14 @@ fileicon test foodir
 **Supported platforms:**
 
 * **macOS**
+
+**Important**: To assign icons (subcommand `set`), Python is required. On macOS versions up to 12.2 (run `sw_vers` and look for the `ProductVersion` field), 
+`fileicon` uses the system (built-in) v2.x Python at `/usr/bin/python`, but the latter will be removed in 12.3.
+If `/usr/bin/python` isn't present, `fileicon` will attempt to use `python3`, via the system's path.
+By default, a _stub_ executable at `/usr/bin/python3` comes with macOS, which then triggers a prompt to
+dowloand and install Python 3 as part of the Xcode command-line utilities. You'll have to perform this 
+installation on demand, or use a Homebrew-installed Python3 version (`brew install python@3`).
+Once Python 3 is installed, the also required select `pyobjc-*` packages will be installed on demand at the user level, the first time `set` is called.
 
 ## Installation via Homebrew
 
@@ -137,7 +145,7 @@ Standard options: --help, --man, --version, --home
 
 # License
 
-Copyright (c) 2015-2019 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
+Copyright (c) 2015-2022 Michael Klement <mklement0@gmail.com> (http://same2u.net), released under the [MIT license](https://spdx.org/licenses/MIT#licenseText).
 
 ## Acknowledgements
 
@@ -149,13 +157,13 @@ This project gratefully depends on the following open-source components, accordi
 
 ## npm dependencies
 
-* [doctoc (D)](https://github.com/thlorenz/doctoc#readme)
+* [doctoc (D)]()
 * [json (D)](https://github.com/trentm/json#readme)
-* [marked (D)](https://marked.js.org)
+* [marked (D)](https://github.com/chjj/marked)
 * [marked-man (D)](https://github.com/kapouer/marked-man#readme)
-* [replace (D)](https://github.com/ALMaclaine/replace#readme)
+* [replace (D)]()
 * [semver (D)](https://github.com/npm/node-semver#readme)
-* [tap (D)](http://www.node-tap.org/)
+* [tap (D)](http://node-tap.org/)
 * [urchin (D)](https://github.com/tlevine/urchin#readme)
 
 <!-- DO NOT EDIT THE NEXT CHAPTER and RETAIN THIS COMMENT: The next chapter is updated by `make update-readme/release` with the contents of 'CHANGELOG.md'. ALSO, LEAVE AT LEAST 1 BLANK LINE AFTER THIS COMMENT. -->
@@ -165,6 +173,9 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.3.0](https://github.com/mklement0/fileicon/compare/v0.2.4...v0.3.0)** (2022-02-11):
+  * [compatibility] Added support for using an available `python3` on macOS 12.3+, where the system v2.x `/usr/bin/python` will no longer be avaialble.
 
 * **[v0.2.4](https://github.com/mklement0/fileicon/compare/v0.2.3...v0.2.4)** (2019-12-10):
   * [installation] Thanks to @danielbayley, there is now an official Homebrew formula.

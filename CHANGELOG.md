@@ -4,6 +4,9 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.3.0](https://github.com/mklement0/fileicon/compare/v0.2.4...v0.3.0)** (2022-02-11):
+  * [compatibility] Added support for using an available `python3` on macOS 12.3+, where the system v2.x `/usr/bin/python` will no longer be avaialble.
+
 * **[v0.2.4](https://github.com/mklement0/fileicon/compare/v0.2.3...v0.2.4)** (2019-12-10):
   * [installation] Thanks to @danielbayley, there is now an official Homebrew formula.
 
