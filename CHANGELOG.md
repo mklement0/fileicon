@@ -4,6 +4,9 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.3.1](https://github.com/mklement0/fileicon/compare/v0.3.0...v0.3.1)** (2022-04-07):
+  * [compatibility] Removed dependency on Python in favor of AppleScript with its ObjC bridge, courtesy of [@scriptingosx](https://github.com/scriptingosx)
+
 * **[v0.3.0](https://github.com/mklement0/fileicon/compare/v0.2.4...v0.3.0)** (2022-02-11):
   * [compatibility] Added support for using an available `python3` on macOS 12.3+, where the system v2.x `/usr/bin/python` will no longer be avaialble.
 

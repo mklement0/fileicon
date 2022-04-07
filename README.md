@@ -69,13 +69,8 @@ fileicon test foodir
 
 * **macOS**
 
-**Important**: To assign icons (subcommand `set`), Python is required. On macOS versions up to 12.2 (run `sw_vers` and look for the `ProductVersion` field), 
-`fileicon` uses the system (built-in) v2.x Python at `/usr/bin/python`, but the latter will be removed in 12.3.
-If `/usr/bin/python` isn't present, `fileicon` will attempt to use `python3`, via the system's path.
-By default, a _stub_ executable at `/usr/bin/python3` comes with macOS, which then triggers a prompt to
-dowloand and install Python 3 as part of the Xcode command-line utilities. You'll have to perform this 
-installation on demand, or use a Homebrew-installed Python3 version (`brew install python@3`).
-Once Python 3 is installed, the also required select `pyobjc-*` packages will be installed on demand at the user level, the first time `set` is called.
+**Important**: If you're running macOS 12.3 or higher, be sure to install at least version 0.3.1 of this utility,
+as it no longer relies on Python (which no longer ships with macOS).
 
 ## Installation via Homebrew
 
@@ -173,6 +168,9 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.3.1](https://github.com/mklement0/fileicon/compare/v0.3.0...v0.3.1)** (2022-04-07):
+  * [compatibility] Removed dependency on Python in favor of AppleScript with its ObjC bridge, courtesy of [@scriptingosx](https://github.com/scriptingosx)
 
 * **[v0.3.0](https://github.com/mklement0/fileicon/compare/v0.2.4...v0.3.0)** (2022-02-11):
   * [compatibility] Added support for using an available `python3` on macOS 12.3+, where the system v2.x `/usr/bin/python` will no longer be avaialble.
