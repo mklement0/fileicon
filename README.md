@@ -152,11 +152,11 @@ This project gratefully depends on the following open-source components, accordi
 
 ## npm dependencies
 
-* [doctoc (D)]()
+* [doctoc (D)](https://github.com/thlorenz/doctoc)
 * [json (D)](https://github.com/trentm/json#readme)
 * [marked (D)](https://github.com/chjj/marked)
 * [marked-man (D)](https://github.com/kapouer/marked-man#readme)
-* [replace (D)]()
+* [replace (D)](https://github.com/ALMaclaine/replace)
 * [semver (D)](https://github.com/npm/node-semver#readme)
 * [tap (D)](http://node-tap.org/)
 * [urchin (D)](https://git.sdf.org/tlevine/urchin)
