@@ -1,12 +1,11 @@
-.TH "FILEICON" "1" "April 2022" "v0.3.1" ""
+.TH "FILEICON" "1" "December 2022" "v0.3.2"
 .SH "NAME"
 \fBfileicon\fR \- manage file and folder custom icons
 .SH SYNOPSIS
 .P
-Manage custom icons for files and folders on macOS\.  
+Manage custom icons for files and folders on macOS\.
 .P
 SET a custom icon for a file or folder:
-.P
 .RS 2
 .nf
 fileicon set      <fileOrFolder> [<imageFile>]
@@ -14,7 +13,6 @@ fileicon set      <fileOrFolder> [<imageFile>]
 .RE
 .P
 REMOVE a custom icon from a file or folder:
-.P
 .RS 2
 .nf
 fileicon rm       <fileOrFolder>
@@ -22,7 +20,6 @@ fileicon rm       <fileOrFolder>
 .RE
 .P
 GET a file or folder's custom icon:
-.P
 .RS 2
 .nf
 fileicon get [\-f] <fileOrFolder> [<iconOutputFile>]
@@ -32,7 +29,6 @@ fileicon get [\-f] <fileOrFolder> [<iconOutputFile>]
 .RE
 .P
 TEST if a file or folder has a custom icon:
-.P
 .RS 2
 .nf
 fileicon test     <fileOrFolder>
@@ -57,6 +53,7 @@ to them\.
 It is converted to an icon and assigned to \fB<fileOrFolder>\fP\|\.
 .br
 If you omit \fB<imageFile>\fP, \fB<fileOrFolder>\fP must itself be an image file whose
+.br
 image should become its own icon\.
 .P
 \fB<iconOutputFile>\fP specifies the file to extract the custom icon to:
@@ -69,14 +66,15 @@ Either way, extraction fails if the target file already exists; use \fB\-f\fP to
 .br
 override\.
 .br
-Specify \fB\-\fP to extract to stdout\.  
+Specify \fB\-\fP to extract to stdout\.
 .P
 Command \fBtest\fP signals with its exit code whether a custom icon is set (0)
 .br
 or not (1); any other exit code signals an unexpected error\.
 .P
 \fBOptions\fR:
-.RS 0
+
+.RS 1
 .IP \(bu 2
 \fB\-f\fP, \fB\-\-force\fP
 .br
@@ -117,7 +115,8 @@ appear distorted; for best results, use square imges\.
 .SH STANDARD OPTIONS
 .P
 All standard options provide information only\.
-.RS 0
+
+.RS 1
 .IP \(bu 2
 \fB\-h, \-\-help\fP
 .br
@@ -125,7 +124,8 @@ Prints the contents of the synopsis chapter to stdout for quick reference\.
 .IP \(bu 2
 \fB\-\-man\fP
 .br
-Displays this manual page, which is a helpful alternative to using \fBman\fP, 
+Displays this manual page, which is a helpful alternative to using \fBman\fP,
+.br
 if the manual page isn't installed\.
 .IP \(bu 2
 \fB\-\-version\fP

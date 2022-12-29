@@ -3,7 +3,7 @@
 # Helper function for error reporting.
 die() { [ $# -gt 0 ] && echo "ERROR: $*" >&2; exit 1; }
 
-requiredUtils='bash python3'    # Add additional prerequisites, if any, here.
+requiredUtils='bash'    # Add additional prerequisites, if any, here.
 for requiredUtil in $requiredUtils; do
   [ -n "$(command -v "$requiredUtil")" ] || die "MISSING PREREQUISITE: \`$requiredUtil\` is required to run tests."
 done

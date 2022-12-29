@@ -27,21 +27,24 @@ a programmatic alternative to interactively using Finder.
 `fileicon` allows assigning a custom icon to any file or folder,
 using [any image file whose format is recognized by the system](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CocoaDrawingGuide/Images/Images.html#//apple_ref/doc/uid/TP40003290-CH208-BCIIFBJG).
 
-_Caveat_: Custom icons rely on [extended attributes](https://en.wikipedia.org/wiki/Extended_file_attributes#OS_X) of the macOS filesystems, 
+_Caveats_: 
+ * Custom icons rely on [extended attributes](https://en.wikipedia.org/wiki/Extended_file_attributes#OS_X) of the macOS filesystems, 
 [HFS+](https://en.wikipedia.org/wiki/HFS_Plus) and [APFS](https://en.wikipedia.org/wiki/Apple_File_System).
 Therefore, custom icons are lost when copying files or folders to filesystems that don't
 support these attributes; for instance, custom icons cannot be stored in a Git repository.
 
+* v0.3.2+ supports custom icons for _volumes_ (folders that act as volume mountpoints) _in principle_, but, as of macOS 13.1 (Ventura), this often fails in practice, for reasons unknown to me; see [this Ask Different question](https://apple.stackexchange.com/q/451965/28668), for instance.
+
 When assigning an image file with `fileicon set`, a set of icons in several
 resolutions is created and stored in the resource fork of the target file itself
-/ of a hidden `Icon\r` file inside the target folder.
+/ of a hidden `Icon\r` file inside the target folder / as the content of a hidden `.VolumeIcon.icns` file for folders that are _volume mountpoints_. Addtionally, a `com.apple.FinderInfo` extended attribute with the custom-icon attribute (flag) is set on the target file or folder itself.
 
 The icon with the highest resolution measures 512 x 512 pixels, and the input
 image is scaled accordingly.  
 Note that input images that aren't square can result in distorted icons;
 for best results, provide square images.
 
-Note that if you supply an input path to a _symlink_, it is invariably its
+If you supply an input path to a _symlink_, it is invariably its
 _target_ that is used for the operation; symlinks themselves cannot have
 icons associated with them.
 
@@ -152,14 +155,13 @@ This project gratefully depends on the following open-source components, accordi
 
 ## npm dependencies
 
-* [doctoc (D)](https://github.com/thlorenz/doctoc)
-* [json (D)](https://github.com/trentm/json#readme)
-* [marked (D)](https://github.com/chjj/marked)
-* [marked-man (D)](https://github.com/kapouer/marked-man#readme)
-* [replace (D)](https://github.com/ALMaclaine/replace)
-* [semver (D)](https://github.com/npm/node-semver#readme)
-* [tap (D)](http://node-tap.org/)
-* [urchin (D)](https://git.sdf.org/tlevine/urchin)
+* [doctoc (D)]()
+* [json (D)]()
+* [marked (D)](https://marked.js.org)
+* [marked-man (D)]()
+* [replace (D)]()
+* [semver (D)]()
+* [urchin (D)]()
 
 <!-- DO NOT EDIT THE NEXT CHAPTER and RETAIN THIS COMMENT: The next chapter is updated by `make update-readme/release` with the contents of 'CHANGELOG.md'. ALSO, LEAVE AT LEAST 1 BLANK LINE AFTER THIS COMMENT. -->
 
@@ -168,6 +170,9 @@ This project gratefully depends on the following open-source components, accordi
 Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
+
+* **[v0.3.2](https://github.com/mklement0/fileicon/compare/v0.3.1...v0.3.2)** (2022-12-29):
+  * [enhancement] Support for *volume* icons, at least in principle; **caveat**: as of macOS 13.1, this often fails in practice; see https://apple.stackexchange.com/q/451965/28668 for an example.
 
 * **[v0.3.1](https://github.com/mklement0/fileicon/compare/v0.3.0...v0.3.1)** (2022-04-07):
   * [compatibility] Removed dependency on Python in favor of AppleScript with its ObjC bridge, courtesy of [@scriptingosx](https://github.com/scriptingosx)

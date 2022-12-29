@@ -12,7 +12,7 @@ PATH=${PWD%%/test*}/bin:$PATH
 die() { (( $# > 0 )) && echo "ERROR: $*" >&2; exit 1; }
 
 # Create a temp. dir.
-tmpDir=$(mktemp -d -t XXXX) # Works on both OSX and Linux; note: dir. name will have random extension on OSX (e.g., '.../XXXX.bJViLcM3') and none on Linux (e.g., '.../vXDA')
+tmpDir=$(mktemp -d -t XXXX) # Works on both macOS and Linux; note: dir. name will have random extension on OSX (e.g., '.../XXXX.bJViLcM3') and none on Linux (e.g., '.../vXDA')
 trap 'rm -rf "$tmpDir"' EXIT # Set up exit trap to automatically clean up the temp dir.
 
 # Copy fixtures to temp. dir.
@@ -33,6 +33,12 @@ for attribName in 'com.apple.FinderInfo' 'com.apple.ResourceFork'; do
 done
 
 # --- folder
+
+# !! Note: While *volumes* are now supported in principle as well (folders that act as volume mountpoints),
+# !!       as of macOS 13.1 we haven't found a way to actually set them predictably: the Cocoa API call only *half*
+# !!       succeeds: it creates the .VolumeIcon.icns helper file, but quietly fails to set the custom-icon flag
+# !!       in the 'com.apple.FinderInfo' extended attribute. See the comments on setCustomIcon() for more information.
+# !!       Therefore, we can NOT test with volume mountpoints.
 
 # Set custom icon.
 fileicon set folder img.png || die "Failed to set."

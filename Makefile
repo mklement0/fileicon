@@ -53,7 +53,7 @@ ifeq ($(NOTEST),1)
 	@echo Note: Skipping tests, as requested. >&2
 else
 	@exists() { [ -e "$$1" ]; }; exists ./test/* || { echo "(No tests defined.)" >&2; exit 0; }; \
-	 if [[ -n $$(json -f package.json main) ]]; then tap ./test; else urchin ./test && [[ -x /usr/bin/python ]] && { printf '\n=== Re-running tests with Python3... ====\n'; __FILEICON_USEPY3=1 urchin ./test; } fi
+	 if [[ -n $$(json -f package.json main) ]]; then tap ./test; else urchin ./test; fi
 endif
 
 # Commits (with prompt for message) and pushes to the branch of the same name in remote repo 'origin', 
