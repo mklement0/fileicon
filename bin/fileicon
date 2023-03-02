@@ -116,7 +116,7 @@ esac
 # IMPORTANT: Hex. digits > 9 use UPPPERCASE characters.
 #   getAttribByteString <file> <attrib_name>
 getAttribByteString() {
-  xattr -px "$2" "$1" | tr -d ' \n'
+  /usr/bin/xattr -px "$2" "$1" | tr -d ' \n'
   return ${PIPESTATUS[0]}
 }
 
@@ -173,7 +173,7 @@ patchByteInByteString() {
 
 #  hasAttrib <fileOrFolder> <attrib_name>
 hasAttrib() {
-  xattr "$1" | /usr/bin/grep -Fqx "$2"
+  /usr/bin/xattr "$1" | /usr/bin/grep -Fqx "$2"
 }
 
 #  hasIconData <file>
@@ -354,9 +354,9 @@ removeCustomIcon() {
   if hasAttrib "$fileOrFolder" com.apple.FinderInfo; then
     byteStr=$(getAttribByteString "$fileOrFolder" com.apple.FinderInfo | patchByteInByteString $kFI_BYTEOFFSET_CUSTOMICON '~'$kFI_VAL_CUSTOMICON) || return
     if [[ $byteStr == "$kFI_BYTES_BLANK" ]]; then # All bytes cleared? Remove the entire attribute.
-      xattr -d com.apple.FinderInfo "$fileOrFolder"
+      /usr/bin/xattr -d com.apple.FinderInfo "$fileOrFolder"
     else # Update the attribute.
-      xattr -wx com.apple.FinderInfo "$byteStr" "$fileOrFolder" || return
+      /usr/bin/xattr -wx com.apple.FinderInfo "$byteStr" "$fileOrFolder" || return
     fi
   fi
 
@@ -365,7 +365,7 @@ removeCustomIcon() {
     rm -f "$(getFileWithIconData "$fileOrFolder")"
   else # file -> remove the resource fork
     if hasIconData "$fileOrFolder"; then
-      xattr -d com.apple.ResourceFork "$fileOrFolder"
+      /usr/bin/xattr -d com.apple.ResourceFork "$fileOrFolder"
     fi
   fi
 
