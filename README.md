@@ -171,6 +171,9 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
+* **[v0.3.3](https://github.com/mklement0/fileicon/compare/v0.3.2...v0.3.3)** (2023-03-02):
+  * [fix] Fix for [#42](https://github.com/mklement0/fileicon/issues/42), courtesy of [vszakats](https://github.com/vszakats).
+
 * **[v0.3.2](https://github.com/mklement0/fileicon/compare/v0.3.1...v0.3.2)** (2022-12-29):
   * [enhancement] Support for *volume* icons, at least in principle; **caveat**: as of macOS 13.1, this often fails in practice; see https://apple.stackexchange.com/q/451965/28668 for an example.
 
