@@ -72,8 +72,10 @@ fileicon test foodir
 
 * **macOS**
 
-**Important**: If you're running macOS 12.3 or higher, be sure to install at least version 0.3.1 of this utility,
+**Important**: 
+ * If you're running macOS 12 (Monterey) or higher, be sure to install at least version 0.3.1 of this utility,
 as it no longer relies on Python (which no longer ships with macOS).
+ * Unfortunately, a bug beyond `fileicon`'s control causes the `get` sub-command (for extracting an existing icon) to be excessively slow on macOS 12 (Monterey); this has been fixed in macOS 13 (Ventura).
 
 ## Installation via Homebrew
 
@@ -171,7 +173,7 @@ Versioning complies with [semantic versioning (semver)](http://semver.org/).
 
 <!-- NOTE: An entry template for a new version is automatically added each time `make version` is called. Fill in changes afterwards. -->
 
-* **[v0.3.4] == [v0.3.3](https://github.com/mklement0/fileicon/compare/v0.3.2...v0.3.3)** (2023-03-02):
+* ** v0.3.4 == [v0.3.3](https://github.com/mklement0/fileicon/compare/v0.3.2...v0.3.3)** (2023-03-02):
   * [fix] Fix for [#42](https://github.com/mklement0/fileicon/issues/42), courtesy of [vszakats](https://github.com/vszakats).
 
 * **[v0.3.2](https://github.com/mklement0/fileicon/compare/v0.3.1...v0.3.2)** (2022-12-29):
