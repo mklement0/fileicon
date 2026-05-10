@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+PATH=${PWD%%/test*}/bin:$PATH
+
+die() { (( $# > 0 )) && echo "ERROR: $*" >&2; exit 1; }
+
+tmpDir=$(mktemp -d -t XXXX)
+trap 'rm -rf "$tmpDir"' EXIT
+
+mkdir -p "$tmpDir/modcache"
+
+cat > "$tmpDir/create-image.swift" <<'SWIFT'
+import AppKit
+import Foundation
+
+let outURL = URL(fileURLWithPath: CommandLine.arguments[1])
+
+let image = NSImage(size: NSSize(width: 400, height: 200))
+image.lockFocus()
+NSColor.clear.set()
+NSRect(x: 0, y: 0, width: 400, height: 200).fill()
+NSColor.black.set()
+NSRect(x: 0, y: 0, width: 400, height: 200).fill()
+image.unlockFocus()
+
+guard
+  let tiff = image.tiffRepresentation,
+  let rep = NSBitmapImageRep(data: tiff),
+  let png = rep.representation(using: .png, properties: [:])
+else {
+  fatalError("Failed to create test image.")
+}
+
+try png.write(to: outURL)
+SWIFT
+
+CLANG_MODULE_CACHE_PATH="$tmpDir/modcache" swift "$tmpDir/create-image.swift" "$tmpDir/non-square.png" || die "Failed to create test image."
+touch "$tmpDir/target" || die
+
+fileicon set "$tmpDir/target" "$tmpDir/non-square.png" || die "Failed to set icon."
+fileicon get -f "$tmpDir/target" "$tmpDir/out.icns" || die "Failed to extract icon."
+sips -s format png "$tmpDir/out.icns" --out "$tmpDir/out.png" >/dev/null || die "Failed to convert icon."
+
+cat > "$tmpDir/measure-bounds.swift" <<'SWIFT'
+import AppKit
+import Foundation
+
+let imageURL = URL(fileURLWithPath: CommandLine.arguments[1])
+let data = try Data(contentsOf: imageURL)
+guard let rep = NSBitmapImageRep(data: data) else {
+  fatalError("Failed to open rendered icon.")
+}
+
+let width = rep.pixelsWide
+let height = rep.pixelsHigh
+var minX = width
+var minY = height
+var maxX = -1
+var maxY = -1
+
+for y in 0..<height {
+  for x in 0..<width {
+    guard let color = rep.colorAt(x: x, y: y) else { continue }
+    if color.alphaComponent > 0.01 {
+      minX = min(minX, x)
+      minY = min(minY, y)
+      maxX = max(maxX, x)
+      maxY = max(maxY, y)
+    }
+  }
+}
+
+guard maxX >= minX, maxY >= minY else {
+  fatalError("Rendered icon has no visible pixels.")
+}
+
+print("\(maxX - minX + 1) \(maxY - minY + 1)")
+SWIFT
+
+read -r opaqueWidth opaqueHeight < <(CLANG_MODULE_CACHE_PATH="$tmpDir/modcache" swift "$tmpDir/measure-bounds.swift" "$tmpDir/out.png") || die "Failed to measure rendered icon."
+
+(( opaqueWidth > opaqueHeight )) || die "Expected a wide rendered icon, got ${opaqueWidth}x${opaqueHeight}."
+
+ratio=$(awk -v w="$opaqueWidth" -v h="$opaqueHeight" 'BEGIN { printf "%.3f", w / h }')
+awk -v ratio="$ratio" 'BEGIN { exit !(ratio > 1.7 && ratio < 2.3) }' || die "Expected aspect ratio near 2:1, got ${opaqueWidth}x${opaqueHeight} (${ratio}:1)."

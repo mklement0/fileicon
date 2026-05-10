@@ -271,8 +271,25 @@ setCustomIcon() {
     set sourcePath to "$imgFile"
     set destPath to "$fileOrFolder"
 
-    set imageData to (current application's NSImage's alloc()'s initWithContentsOfFile:sourcePath)
-    (current application's NSWorkspace's sharedWorkspace()'s setIcon:imageData forFile:destPath options:2)
+    set sourceImage to (current application's NSImage's alloc()'s initWithContentsOfFile:sourcePath)
+    set imageSize to sourceImage's |size|()
+    set imageWidth to (width of imageSize) as real
+    set imageHeight to (height of imageSize) as real
+    set canvasSide to imageWidth
+    if imageHeight > canvasSide then set canvasSide to imageHeight
+    set drawWidth to imageWidth
+    set drawHeight to imageHeight
+    set drawOriginX to (canvasSide - drawWidth) / 2
+    set drawOriginY to (canvasSide - drawHeight) / 2
+
+    set squareImage to (current application's NSImage's alloc()'s initWithSize:{width:canvasSide, height:canvasSide})
+    squareImage's lockFocus()
+    current application's NSColor's clearColor()'s |set|()
+    current application's NSRectFill(current application's NSMakeRect(0, 0, canvasSide, canvasSide))
+    sourceImage's drawInRect:(current application's NSMakeRect(drawOriginX, drawOriginY, drawWidth, drawHeight)) fromRect:(current application's NSZeroRect) operation:(current application's NSCompositingOperationSourceOver) fraction:1.0
+    squareImage's unlockFocus()
+
+    (current application's NSWorkspace's sharedWorkspace()'s setIcon:squareImage forFile:destPath options:2)
 EOF
 
   # Fully verify that everything worked as intended.
