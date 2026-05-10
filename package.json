@@ -13,7 +13,7 @@
   "homepage": "https://github.com/mklement0/fileicon",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mklement0/fileicon.git"
+    "url": "git+https://github.com/mklement0/fileicon.git"
   },
   "bugs": {
     "url": "https://github.com/mklement0/fileicon/issues"
