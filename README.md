@@ -41,8 +41,6 @@ resolutions is created and stored in the resource fork of the target file itself
 
 The icon with the highest resolution measures 512 x 512 pixels, and the input
 image is scaled accordingly.  
-Note that input images that aren't square can result in distorted icons;
-for best results, provide square images.
 
 If you supply an input path to a _symlink_, it is invariably its
 _target_ that is used for the operation; symlinks themselves cannot have
