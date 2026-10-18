@@ -232,6 +232,20 @@ getTargetType() {
   fi
 }
 
+#  isApplicationBundle <folder>
+isApplicationBundle() {
+  local folder=${1%/}
+  [[ -d $folder && $folder == *.app ]]
+}
+
+#  touchApplicationBundle <fileOrFolder>
+# For application bundles, make macOS notice custom-icon metadata changes.
+touchApplicationBundle() {
+  local fileOrFolder=$1
+  isApplicationBundle "$fileOrFolder" || return 0
+  touch "$fileOrFolder"
+}
+
 
 #  setCustomIcon <fileOrFolder> <imgFile>
 # Tips for debugging:
@@ -574,10 +588,12 @@ esac
 case $cmd in
   'set')
     setCustomIcon "$targetFileOrFolder" "$imgFile" || die
+    touchApplicationBundle "$targetFileOrFolder" || die
     (( quiet )) || echo "Custom icon assigned to $(getTargetType "$targetFileOrFolder") '$targetFileOrFolder' based on '$imgFile'."
     ;;
   'rm')
     removeCustomIcon "$targetFileOrFolder" || die
+    touchApplicationBundle "$targetFileOrFolder" || die
     (( quiet )) || echo "Custom icon (if any) removed from $(getTargetType "$targetFileOrFolder") '$targetFileOrFolder'."
     ;;
   'get')
